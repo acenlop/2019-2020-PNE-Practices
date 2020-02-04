@@ -18,5 +18,6 @@ def fibosum(n):
         fibonacci = fibonacci + fibon(i)
     return fibonacci
 
-n = int(input("Enter a number for the fibonacci series:"))
-print("The sum of the first", n, "terms of the Fibonacci series:", fibosum(n))
+print("The sum of the first", 5, "terms of the Fibonacci series:", fibosum(5))
+print("The sum of the first", 10, "terms of the Fibonacci series:", fibosum(10))
+
