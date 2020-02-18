@@ -32,3 +32,9 @@ def seq_count_base(seq,base):
     print("T:", letterT)
     print("G:", letterG)
 
+def seq_count(seq):
+   d = seq_count_base(seq, base)
+
+
+def seq_reverse(seq):
+    return seq[::-1]
