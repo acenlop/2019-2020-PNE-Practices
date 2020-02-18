@@ -8,3 +8,6 @@ def seq_read_fasta(FILENAME):
     f = file_contents.split('\n')
     cadena = ''.join(f[1::])
     return cadena
+
+def seq_len(seq):
+    return len(seq)
