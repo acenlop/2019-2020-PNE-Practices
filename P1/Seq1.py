@@ -22,7 +22,8 @@ class Seq:
         for e in self.strbases:
             if e not in ["A", "C", "T", "G"]:
                 return 0
-        return len(self.strbases)
+            else:
+                return len(self.strbases)
 
     def count_base(self, base):
         count_base = 0
