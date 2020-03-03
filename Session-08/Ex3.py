@@ -2,7 +2,7 @@ import socket
 
 # SERVER IP, PORT
 # Write here the correct parameter for connecting to the
-# Teacher's server
+# Teacher's server g
 PORT = 8080
 IP = "212.128.253.142"
 
