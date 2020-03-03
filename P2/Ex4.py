@@ -7,7 +7,7 @@ print(f"-----| Practice {PRACTICE}, Exercise {EXERCISE} |------")
 
 IP = "212.128.253.142"
 PORT = 8080
-c = Client(IP, PORT)
+c = Client(IP, PORT)   #unir ip y port
 print(c)
 
 c.debug_talk("Message 1---")
