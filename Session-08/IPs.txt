@@ -1,0 +1,3 @@
+Machine 	     Interface      	Date     	Place 	     IP
+mobile          	Wifi          25/02/20       Home    212.128.240.50
+Lab computer    	Wire          25/02/20       Lab     10.3.32.92
