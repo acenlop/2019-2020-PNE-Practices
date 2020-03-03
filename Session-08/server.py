@@ -6,7 +6,7 @@ import termcolor
 
 #SERVER'S IP AND PORT
 PORT = 8080
-IP = "212.128.253.128"
+IP = "212.128.253.142"
 MAX_OPEN_REQUESTS = 5
 
 # Counting the number of connections

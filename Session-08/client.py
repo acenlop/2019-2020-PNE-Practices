@@ -1,6 +1,6 @@
 import socket
 
-IP = "212.128.240.50"
+IP = "212.128.253.142"
 PORT = 8080
 
 s = socket.socket((socket.AF_INET, socket.SOCK_STREAM)

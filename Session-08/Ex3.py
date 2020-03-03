@@ -4,7 +4,8 @@ import socket
 # Write here the correct parameter for connecting to the
 # Teacher's server
 PORT = 8080
-IP = "212.128.240.50"
+IP = "212.128.253.142"
+
 while True:
     user_input = input("Enter a message: ")
     # First, create the socket
