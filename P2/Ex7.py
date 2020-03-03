@@ -10,7 +10,7 @@ IP= "212.128.253.142"
 PORT_1 = 8080
 PORT_2 = 8081
 
-c_1 = Client(IP, PORT_1)   #unir ip y port
+c_1 = Client(IP, PORT_1)   #unir ip y port juntos
 print(c_1)
 
 c_2 = Client(IP, PORT_2)
