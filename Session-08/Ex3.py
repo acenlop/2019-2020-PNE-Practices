@@ -16,7 +16,7 @@ while True:
 
     # Send data. No strings can be send, only bytes
     # It necesary to encode the string into bytes
-    s.send(str.encode("HELLO FROM THE CLIENT!!!"))
+    s.send(str.encode(user_input))
 
     # Closing the socket
     s.close()
