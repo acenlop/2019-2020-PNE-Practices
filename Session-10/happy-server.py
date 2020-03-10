@@ -17,17 +17,24 @@ ls.listen()
 
 print("Server is configured!")
 
+c = 0
 while True:
+
+    print("Waiting for Clients to connect")
+
     try:
         #Step 4: Wait for clients to connect
         (cs, client_ip_port) = ls.accept()
 
     except KeyboardInterrupt:
-        print("Server is done!")
+        print("Server stopped by the user!")
         ls.close()
         exit()
 
     else:
+        print("A client has connected to the server!")
+        c = c + 1  # number of connections
+
         #Step 5: Receiving info from the client
         msg_raw = cs.recv(2000)
         msg = msg_raw.decode()
