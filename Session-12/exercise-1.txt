@@ -1,0 +1,24 @@
+
+---For URL: http://127.0.0.1:8080/hello
+
+1. Which is the request line?
+
+2. Which is the resource name that the client is asking for? (Path)
+
+
+---For URL: http://127.0.0.1:8080/file.html
+
+1. Which is the request line?
+
+2. Which is the resource name that the client is asking for? (Path)
+
+
+---For URL:  http://127.0.0.1:8080/hi/there?name=virus&type=corona
+
+1. Which is the request line?
+
+2. Which is the resource name that the client is asking for? (Path)
+
+
+---What should be the URL that we have to write in the Browser for accessing the /dna/u5 resource?
+        http://127.0.0.1:8080/dna/u5
