@@ -90,3 +90,7 @@ while True:
 
         # -- Close the socket
         cs.close()
+
+
+
+#We can't see the green page, just the html code
