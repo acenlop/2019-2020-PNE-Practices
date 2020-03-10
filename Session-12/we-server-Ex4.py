@@ -30,7 +30,7 @@ def process_client(s):
     # blank line
     # Body (content to send)
 
-    # This new contents are written in HTML language
+    # This new contents are written in HTML language     #INDEX.HTML
     body = """
     <!DOCTYPE html>
     <html lang="en" dir="ltr">
