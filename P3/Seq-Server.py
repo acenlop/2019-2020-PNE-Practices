@@ -82,7 +82,6 @@ while True:
         response = str(s) + "\n"
 
         # -- The message has to be encoded into bytes
-
     # Server Console
     termcolor.cprint(msg[:msg.find(" ")], "green")
     print(response)
