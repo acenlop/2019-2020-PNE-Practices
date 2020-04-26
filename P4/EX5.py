@@ -52,7 +52,7 @@ def process_client(s):
         body = read(FOLDER + FILENAME)
     else:
         FILENAME = "ERROR.html"
-        body = read(FOLDER + FILENAME)  # read() is the function read_fasta_data()
+        body = read(FOLDER + FILENAME)
 
     # This new contents are written in HTML language
     # -- Status line: We respond that everything is ok (200 code)
