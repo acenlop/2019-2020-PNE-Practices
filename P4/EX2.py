@@ -40,7 +40,7 @@ def process_client(s):
     FILENAME = "A.html"
 
     if "/info/A" in req_line:  # req_line is GET /info/A HTTP/1.1
-        body = read(FOLDER + FILENAME)  # read() is the function read_fasta_data() from other practice
+        body = read(FOLDER + FILENAME)  # read() is the function read_fasta_data() from other practices
     else:
         body = ""
 
