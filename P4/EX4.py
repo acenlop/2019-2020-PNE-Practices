@@ -47,6 +47,9 @@ def process_client(s):
     elif "/info/T" in req_line:
         FILENAME = "T.html"
         body = read(FOLDER + FILENAME)
+    elif "/info/G" in req_line:
+        FILENAME = "G.html"
+        body = read(FOLDER + FILENAME)
     else:
         body = ""
 
