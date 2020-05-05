@@ -96,7 +96,7 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
                             contents += f"""<p>The species are: </p>"""
                             for specie in limit_list:
                                 contents += f"""<p> - {specie} </p>"""
-                    contents += f"""<a href="/">Main page</a></body></html>"""
+                    contents += f"""<a href="/">Main page</a></body></html>"""     #to go back to the main page = index.html
 
             elif first_resource == "/karyotype":
                 contents = f"""<!DOCTYPE html>
@@ -117,7 +117,7 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
                 ENDPOINT = 'info/assembly/'  # we add ENDPOINT to URL
                 # Connect with the server
                 conn = http.client.HTTPConecction(SERVER)
-                REQUEST = ENDPOINT + PARAMS  # easier
+                REQUEST = ENDPOINT + name_sp + PARAMS  # easier for connecting
 
                 try:
                     conn.request('GET', REQUEST)
@@ -128,9 +128,88 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
                 # response
                 response = conn.getresponse()  # .getresponse() method that returns the reponse information from the server
                 data = response.read().decode("utf-8")  # It is necessary to decode the information
+                karyotype_data = data["karyotype"]
+                for chromosome in karyotype_data:
+                    contents += f"""<p> - {chromosome} </p>"""
+                    contents += f"""<a href="/">Main page </a></body></html>"""         #to go back to the main page = index.html
 
-            # Generating the response message
-            self.send_response(error_code)  # -- Status line: OK!
+            elif first_resource == "/chromosomeLength":
+                content = ???????
+                # We get the arguments that go after the ? symbol
+                pair = list_resource[1]
+                # We have a couple of elements, we need the sequence that we previously wrote and the operation to perform
+                # that we previously selected
+                pairs = pair.split('&')
+                species_name, specie = pairs[0].split("=")
+                chromosome_index, chromosome = pairs[1].split("=")
+
+                ENDPOINT = 'info/assembly/'  # we add ENDPOINT to URL
+                # Connect with the server
+                conn = http.client.HTTPConecction(SERVER)
+                REQUEST = ENDPOINT + specie + PARAMS  # easier
+
+                try:
+                    conn.request('GET', REQUEST)
+                except ConnectionRefusedError:  # If the connection fails we print an error message
+                    print("ERROR! Cannot connect to the Server")
+                    exit()
+
+                # response
+                response = conn.getresponse()  # .getresponse() method that returns the reponse information from the server
+                data = response.read().decode("utf-8")  # It is necessary to decode the information
+                data = json.loads(data)
+                chromosome_data = data["top_level_region"]
+                for chromo in chromosome_data:
+                    if chromo["name"] == str(chromosome):
+                        length = chromo["length"]
+                        contents = f"""<!DOCTYPE html><html lang = "en"><head><meta charset = "utf-8" ><title> Length Chromosome</title >
+                                            </head ><body><h2> The length of the chromosome is: {length}</h2><a href="/"> Main page</a"""
+
+
+        except (KeyError, ValueError, IndexError, TypeError):
+            contents = Path('error.html').read_text()
+
+
+        # Generating the response message
+        self.send_response(error_code)  # -- Status line: OK!
+
+        # Define the content-type header:
+        self.send_header('Content-Type', content_type)
+        self.send_header('Content-Length', len(str.encode(contents)))
+
+        # The header is finished
+        self.end_headers()
+
+        # Send the response message
+        self.wfile.write(str.encode(contents))
+
+        return
+
+
+# ------------------------
+# - Server MAIN program
+# ------------------------
+# -- Set the new handler
+Handler = TestHandler
+
+# -- Open the socket server
+with socketserver.TCPServer(("", PORT), Handler) as httpd:
+
+    print("Serving at PORT", PORT)
+
+    # -- Main loop: Attend the client. Whenever there is a new
+    # -- clint, the handler is called
+    try:
+        httpd.serve_forever()
+    except KeyboardInterrupt:
+        print("")
+        print("Stoped by the user")
+        httpd.server_close()
+
+
+
+
+
 
 
 
@@ -210,43 +289,8 @@ for gene in GENES:
 
 
 
-    # -- This is for preventing the error: "Port already in use"
-    socketserver.TCPServer.allow_reuse_address = True
 
 
 
 
 
-
-            # Define the content-type header:
-            self.send_header('Content-Type', content_type)
-            self.send_header('Content-Length', len(str.encode(contents)))
-
-            # The header is finished
-            self.end_headers()
-
-            # Send the response message
-            self.wfile.write(str.encode(contents))
-
-            return
-
-
-# ------------------------
-# - Server MAIN program
-# ------------------------
-# -- Set the new handler
-Handler = TestHandler
-
-# -- Open the socket server
-with socketserver.TCPServer(("", PORT), Handler) as httpd:
-
-    print("Serving at PORT", PORT)
-
-    # -- Main loop: Attend the client. Whenever there is a new
-    # -- clint, the handler is called
-    try:
-        httpd.serve_forever()
-    except KeyboardInterrupt:
-        print("")
-        print("Stoped by the user")
-        httpd.server_close()
