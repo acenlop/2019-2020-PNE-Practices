@@ -61,7 +61,6 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
                               <body>
                               <p>The total number of species in ensembl is: 267</p>"""
 
-
               get_value = list_resource[1]    #go to the first argument
               seq_n = get_value.split('?')    #splits the argument by ?
               seq_name, index = seq_n[0].split("=")    #then splits by the =
@@ -492,6 +491,6 @@ with socketserver.TCPServer(("", PORT), Handler) as httpd:
        httpd.serve_forever()
    except KeyboardInterrupt:
        print("")
-       print("Stoped by the user")
+       print("Stopped by the user")
        httpd.server_close()
 
