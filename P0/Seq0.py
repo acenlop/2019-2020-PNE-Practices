@@ -45,8 +45,6 @@ def seq_complement(seq):
        seq = seq.replace(key, dictionary[key])
        return seq
 
-def seq_ping():
-    print("OK")
 
-print(seq_ping())
+
 

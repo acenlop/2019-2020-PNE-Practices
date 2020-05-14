@@ -1,8 +1,6 @@
 from Seq0 import *
 
-seq1 = "ATTCCCGGGGedwrghyj"
-
-seq_check(seq1)
+seq1 = "ATTCCCGGGG"
 
 print(f"Seq:    {seq1}")
 print(f"  Rev : {seq_reverse(seq1)}")

@@ -1,13 +1,22 @@
-class Seq:
-    """A class for representing sequence objects"""
-    def __init__(self, strbases):
-        self.strbases = strbases
-        print("New sequence created!")
+class Gene(Seq):
+    """This class is derived from the Seq Class
+       All the objects of class Gene will inheritate
+       the methods from the Seq class
+    """
+    def __init__(self, strbases, name=""):
+
+        # -- Call first the Seq initilizer and then the
+        # -- Gene init method
+        super().__init__(strbases)
+        self.name = name
+        print("New gene created")
 
     def __str__(self):
-        return self.strbases
+        """Print the Gene name along with the sequence"""
+        return self.name + "-" + self.strbases
 
     def len(self):
+        #--Calculate the length of the sequence
         return len(self.strbases)
 
 class Gene(Seq):
@@ -15,13 +24,10 @@ class Gene(Seq):
 
 
 
-#Main program
+# --- Main program
+s1 = Seq("AGTACACTGGT")
+g = Gene("CGTAAC", "FRAT1")
 
-s1 = Seq("AACGTC")      #OBJECT
-g = Gene("ACTAGAT")
+# -- Printing the objects
 print(f"Sequence 1: {s1}")
-print(f"Sequence 2: {g}")
-
-len1 = s1.len()
-print(f"The length of the sequence 1 is {len1}")
-print(f"The length of the gene is {g.len()}")
+print(f"Gene: {g}")
