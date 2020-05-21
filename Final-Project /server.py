@@ -1,6 +1,6 @@
 import http.server
 import socketserver
-import termcolor
+#import termcolor
 from pathlib import Path
 from Seq1 import Seq
 import json
@@ -13,7 +13,9 @@ BASES = ["A","T","G","C"]
 #URL w/o the ENDPOINT (different for each option)
 SERVER = 'rest.ensembl.org'
 PARAMS = '?content-type=application/json'
-URL = SERVER + PARAMS
+
+# Connect with the server
+conn = http.client.HTTPConnection(SERVER)
 
 
 # -- This is for preventing the error: "Port already in use"
@@ -29,7 +31,8 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
       in the HTTP protocol request"""
 
       # Print the request line in green
-      termcolor.cprint(self.requestline, 'green')
+      #termcolor.c
+      print(self.requestline)
 
       req_line = self.requestline.split(' ')  #splits request line by spaces
 
@@ -57,24 +60,25 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
                               <head>
                                <meta charset = "utf-8" >
                                <title>List of species in the browser</title >
-                              </head >
-                              <body>
-                              <p>The total number of species in ensembl is: 267</p>"""
+                              </head>
+                              <body style="background-color:#DCF3FB">
+                              <h1 style="color:#32A2C9"> List of species</h1>
+                              <p style="color:#19B4E6"><b>The total number of species in ensembl is: 267</b></p>"""
 
               get_value = list_resource[1]    #go to the first argument
               seq_n = get_value.split('?')    #splits the argument by ?
               seq_name, index = seq_n[0].split("=")    #then splits by the =
               index = int(index)
-              contents += f"""<p>The number of species you selected are: {index} </p>""" #prints the total number of species selected
+              contents += f"""<p><b>The number of species you selected are: {index} </b> </p>""" #prints the total number of species selected
 
               ENDPOINT = 'info/species'            #we add ENDPOINT to URL
+              PARAMS = '?content-type=application/json'
               REQUEST = ENDPOINT + PARAMS
 
-              # Connect with the server
-              conn = http.client.HTTPConecction(SERVER)
 
               try:
                   conn.request('GET', REQUEST)       #connection request
+
               except ConnectionRefusedError:           # If the connection fails we print an error message
                   print("ERROR! Cannot connect to the Server")
                   exit()
@@ -86,6 +90,7 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
               limit_list = []               #list to store all species within limit
               data = json.loads(data)       # loads(). is a method from JSON library  (read JSON response)
               limit = data["species"]
+
               if index > len(limit):         #in case there are more species than the limit
                   contents = f"""<!DOCTYPE html>
                                           <html lang = "en">
@@ -93,9 +98,10 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
                                            <meta charset = "utf-8" >
                                            <title>ERROR</title >
                                           </head>
-                                          <body>
-                                          <p>ERROR LIMIT OUT OF RANGE. Introduce a valid limit value</p>
-                                          <a href="/">Main page</a></body></html>"""
+                                          <body style="background-color:red">
+                                          <h1>ERROR</h1>
+                                          <p>NUMBER INTRODUCED IS OUT OF RANGE. Introduce a valid limit value, between 0 and 286</p>
+                                          <p> Go back to the Main Page: <a href="/">Main page</a> </p> </body></html>"""
               else:
                   for element in limit:       #iteration to get all the species in the limit
                       limit_list.append(element["display_name"])     #appends to list
@@ -104,7 +110,7 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
                           contents += f"""<p>The species are: </p>"""
                           for specie in limit_list:         #iteration to print
                               contents += f"""<p> - {specie} </p>"""
-                  contents += f"""<a href="/">Main page</a></body></html>"""     #to go back to the main page = index.html
+                  contents += f"""<p> Go back to the Main Page: <a href="/">Main page</a> </p> </body></html>"""     #to go back to the main page = index.html
 
 
           #------Karyotype
@@ -116,8 +122,9 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
                                   <meta charset = "utf-8">
                                    <title> Karyotype </title >
                               </head >
-                              <body>
-                              <h2> The names of the chromosomes are:</h2>"""
+                              <body style="background-color:#DCF3FB">
+                              <h1 style="color:#32A2C9">Karyotype</h1>
+                              <h2 style="color:#19B4E6"> The names of the chromosomes are: </h2>"""
 
               # We get the arguments that go after the ? symbol
               get_value = list_resource[1]
@@ -127,14 +134,13 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
               seq_name, name_sp = seq_n[0].split("=")     #then splits by the =
 
               ENDPOINT = 'info/assembly/'  # we add ENDPOINT to URL
+              PARAMS = '?content-type=application/json'
               REQUEST = ENDPOINT + name_sp + PARAMS  # easier for connecting
-
-              # Connect with the server
-              conn = http.client.HTTPConecction(SERVER)
 
 
               try:
                   conn.request('GET', REQUEST)     #connection request
+
               except ConnectionRefusedError:  # If the connection fails we print an error message
                   print("ERROR! Cannot connect to the Server")
                   exit()
@@ -147,7 +153,7 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
 
               for chromosome in karyotype_data:     #iteration to print all the chromosomes
                   contents += f"""<p> - {chromosome} </p>"""
-                  contents += f"""<a href="/">Main page </a></body></html>"""         #to return to the main page = index.html
+                  contents += f"""<p>Go back to the main page: <a href="/">Main page </a></p> </body></html>"""         #to return to the main page = index.html
 
 
 
@@ -175,10 +181,8 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
                                         <a href="/">Main page</a></body></html>"""
 
               ENDPOINT = 'info/assembly/'  # we add ENDPOINT to URL
+              PARAMS = '?content-type=application/json'
               REQUEST = ENDPOINT + specie + PARAMS
-
-              # Connect with the server
-              conn = http.client.HTTPConecction(SERVER)
 
 
               try:
@@ -198,8 +202,16 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
               for chromo in chromosome_data:    #iteration to get all chromo from list
                   if chromo["name"] == str(chromosome):
                       length = chromo["length"]
-                      contents = f"""<!DOCTYPE html><html lang = "en"><head><meta charset = "utf-8" ><title> Length Chromosome</title >
-                                          </head ><body><h2> The length of the chromosome is: {length}</h2><a href="/"> Main page</a"""
+                      contents = f"""<!DOCTYPE html>
+                                                <html lang = "en">
+                                                <head>
+                                                <meta charset = "utf-8" >
+                                                <title> Length Chromosome</title >
+                                                </head>
+                                                <body style="background-color:#DCF3FB">
+                                                <h1 style="color:#32A2C9">Chromosome Length</h1>
+                                                <p style="color:#19B4E6"><b> The length of the chromosome is: {length}</b></p>
+                                                <p>Go back to the Main Page: <a href="/"> Main page</a></p>"""
 
 
 
@@ -219,17 +231,16 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
 
               # We have to separate the human gene from the sequence
               seq_n = get_value.split('?')     # We get the arguments that go after the ? symbo
-
               seq_name, name_seq = seq_n[0].split("=")
+
               contents += f"""<p> The sequence of gene {name_seq} is:  </p>"""
 
-                      # First Endpoint and program
+                      # First Endpoint (homosapiens) and program
 
               FIRST_ENDPOINT = 'xrefs/symbol/homo_sapiens/'  # first endpoint is to get to the homo sapiens
+              PARAMS = '?content-type=application/json'
               FIRST_REQUEST = FIRST_ENDPOINT + name_seq + PARAMS
 
-              # Connect with the server
-              conn = http.client.HTTPConecction(SERVER)
 
               try:
                   conn.request('GET', FIRST_REQUEST)  # connection request
@@ -249,10 +260,12 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
                       #Second Endpoint and program
 
               SECOND_ENDPOINT = 'sequence/id/'  # second endpoint is to get the specific gene
+              PARAMS = '?content-type=application/json'
               SECOND_REQUEST = SECOND_ENDPOINT + id_gene + PARAMS
 
               try:
                   conn.request('GET', SECOND_REQUEST)  # connection request
+
               except ConnectionRefusedError:  # If the connection fails we print an error message
                   print("ERROR! Cannot connect to the Server")
                   exit()
@@ -268,7 +281,7 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
 
 
 
-          # ------GeneSeq
+          # ------GeneInfo
 
           elif first_resource == "/geneInfo":      #Return information about a human gene
               contents = f"""<!DOCTYPE html>
@@ -281,21 +294,21 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
               get_value = list_resource[1]  # go to the first argument
 
               # We have to separate the human gene from the sequence
-              seq_n = get_value.split('?')  # We get the arguments that go after the ? symbo
-
+              seq_n = get_value.split('?')  # We get the arguments that go after the ? symbol
               seq_name, name_seq = seq_n[0].split("=")
+
               contents += f"""<p> The information of the gene {name_seq} is:  </p>"""
 
                           # First Endpoint and program
 
               FIRST_ENDPOINT = 'xrefs/symbol/homo_sapiens/'  # first endpoint is to ....
+              PARAMS = '?content-type=application/json'
               FIRST_REQUEST = FIRST_ENDPOINT + name_seq + PARAMS
 
-              # Connect with the server
-              conn = http.client.HTTPConecction(SERVER)
 
               try:
                   conn.request('GET', FIRST_REQUEST)  # connection request
+
               except ConnectionRefusedError:  # If the connection fails we print an error message
                   print("ERROR! Cannot connect to the Server")
                   exit()
@@ -312,10 +325,12 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
                        # Second Endpoint and program
 
               SECOND_ENDPOINT = 'lookup/id/'  # second endpoint is to ....
+              PARAMS = '?content-type=application/json'
               SECOND_REQUEST = SECOND_ENDPOINT + id_gene + PARAMS
 
               try:
                   conn.request('GET', SECOND_REQUEST)  # connection request
+
               except ConnectionRefusedError:  # If the connection fails we print an error message
                   print("ERROR! Cannot connect to the Server")
                   exit()
@@ -333,9 +348,9 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
                               <p> The gene id is at: {id_gene} </p> <p> The gene is on chromosome: {data2["seq_region_name"]} </p>
                               <a href="/">Main page</a></body></html>"""  #redirects to main page
 
-          # ------GeneSeq
+          # ------GeneCalc
 
-          elif first_resource == "/geneInfo":  # Return information about a human gene
+          elif first_resource == "/geneCalc":  # Return information about a human gene
               contents = f"""<!DOCTYPE html>
                                           <html lang = "en">          
                                           <head>
@@ -353,10 +368,8 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
                           # First Endpoint and program
 
               FIRST_ENDPOINT = 'xrefs/symbol/homo_sapiens/'  # first endpoint is to ....
+              PARAMS = '?content-type=application/json'
               FIRST_REQUEST = FIRST_ENDPOINT + name_seq + PARAMS
-
-              # Connect with the server
-              conn = http.client.HTTPConecction(SERVER)
 
               try:
                   conn.request('GET', FIRST_REQUEST)  # connection request
@@ -392,14 +405,15 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
               data2 = response2.read().decode("utf-8")  # It is necessary to decode the information
               data2 = json.loads(data2)  # loads(). is a method from JSON library  (read JSON response)
 
-              sequence = Seq(body2["seq"])
+              sequence = Seq(data2["seq"])
 
 
               contents += f"""<p> The length of gene {name_seq} is: {sequence.len()} </p>"""
 
+              BASES = ["A", "T", "G", "C"]
 
               for base in BASES:
-                  perc_base = round(sequence.count_base(base) * 100 / sequence.len(),2)
+                  perc_base = round(sequence.count_base(base) * 100 / sequence.len(), 2)
                   contents += f"""<p> {base} : {sequence.count_base(base)} ({perc_base}%) </p>"""
 
               contents += f"""<a href="/">Main page</a></body></html>"""  # redirects to main page
@@ -416,7 +430,7 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
               pair = list_resource[1]  # go to the first argument
 
               # We have to separate the human gene from the sequence
-              pairs = pair.split('&')     # We get the arguments that go after the ? symbo
+              pairs = pair.split('&')     # We get the arguments that go after the & symbol
 
               value_chromo, chromo = pairs[0].split("=")
               chromosome_start, start = pairs[1].split("=")
@@ -425,13 +439,13 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
               contents += f"""<p> List of genes of the chromosome {chromo}, which goes from {start} to {end} </p>"""
 
               ENDPOINT = 'overlap/region/human/'  # we add ENDPOINT to URL
+              PARAMS = '?feature=gene;content-type=application/json'
               REQUEST = ENDPOINT + chromo + ":" + start + "-" + end + PARAMS
 
-              # Connect with the server
-              conn = http.client.HTTPConecction(SERVER)
 
               try:
                   conn.request('GET', REQUEST)  # connection request
+
               except ConnectionRefusedError:  # If the connection fails we print an error message
                   print("ERROR! Cannot connect to the Server")
                   exit()
@@ -451,29 +465,29 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
 
 
 
-              # Open the form1.html file
-              # Read the index from th
+          # Open the form1.html file
+          # Read the index from th
 
-              # Define the content-type header:
-              if 'json=1' in req_line:
-                  self.send_header('Content-Type', 'application/json')
-                  self.send_header('Content-Length', len(str.encode(contents)))
+          # Define the content-type header:
+          if 'json=1' in req_line:
+              self.send_header('Content-Type', 'application/json')
+              self.send_header('Content-Length', len(str.encode(contents)))
 
-              else:
-                  self.send_header('Content-Type', 'text/html')
-                  self.send_header('Content-Length', len(str.encode(contents)))
+          else:
+              self.send_header('Content-Type', 'text/html')
+              self.send_header('Content-Length', len(str.encode(contents)))
 
-              # The header is finished
-              self.end_headers()
+          # The header is finished
+          self.end_headers()
 
-              # Send the response message
-              self.wfile.write(str.encode(contents))
+          # Send the response message
+          self.wfile.write(str.encode(contents))
 
-              return
+          return
 
 
       except (KeyError, ValueError, IndexError, TypeError):
-          contents = Path('error.html').read_text()
+          contents = Path('Error.html').read_text()
 
 # ------------------------
 # - Server MAIN program (taken from previous practices)
