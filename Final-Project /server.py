@@ -1,6 +1,6 @@
 import http.server
+import http.client
 import socketserver
-#import termcolor
 from pathlib import Path
 from Seq1 import Seq
 import json
@@ -116,26 +116,30 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
           #------Karyotype
 
           elif first_resource == "/karyotype":         #returns the names of the chromosomes of the chosen species
-              contents = f"""<!DOCTYPE html>
-                              <html lang = "en">
-                              <head>
-                                  <meta charset = "utf-8">
-                                   <title> Karyotype </title >
-                              </head >
-                              <body style="background-color:#DCF3FB">
-                              <h1 style="color:#32A2C9">Karyotype</h1>
-                              <h2 style="color:#19B4E6"> The names of the chromosomes are: </h2>"""
 
               # We get the arguments that go after the ? symbol
               get_value = list_resource[1]
 
               # We get the seq index and name of species
               seq_n = get_value.split('?')    #splits the argument by ?
-              seq_name, name_sp = seq_n[0].split("=")     #then splits by the =
+              specie_name, name_sp = seq_n[0].split("=")     #obtain species after the =
+
+              # html for when no specie is written
+              contents = f"""<!DOCTYPE html>                         
+                                          <html lang = "en">
+                                          <head>
+                                           <meta charset = "utf-8" >
+                                           <title>ERROR</title>
+                                          </head>
+                                          <body style="background-color: red">
+                                          <h1>ERROR</h1>
+                                          <h2> INVALID ARGUMENT </h2>
+                                          <p> Introduce a valid species to find its karyotype</p>
+                                          <p>Go back to the Main Page: <a href="/">Main page</a></p> </body></html>"""
 
               ENDPOINT = 'info/assembly/'  # we add ENDPOINT to URL
               PARAMS = '?content-type=application/json'
-              REQUEST = ENDPOINT + name_sp + PARAMS  # easier for connecting
+              REQUEST = ENDPOINT + name_sp + PARAMS  #for connecting
 
 
               try:
@@ -149,11 +153,25 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
               response = conn.getresponse()  # .getresponse() method that returns the reponse information from the server
 
               data = response.read().decode("utf-8")  # It is necessary to decode the information = utf-8
+              data = json.loads(data)
               karyotype_data = data["karyotype"]
 
-              for chromosome in karyotype_data:     #iteration to print all the chromosomes
-                  contents += f"""<p> - {chromosome} </p>"""
-                  contents += f"""<p>Go back to the main page: <a href="/">Main page </a></p> </body></html>"""         #to return to the main page = index.html
+              contents = f"""<!DOCTYPE html>
+                                          <html lang = "en">
+                                          <head>
+                                          <meta charset = "utf-8">
+                                          <title> Karyotype </title >
+                                          </head>
+                                          <body style="background-color:#DCF3FB">
+                                          <h1 style="color:#32A2C9">Karyotype</h1>
+                                          <h2 style="color:#19B4E6"> The chromosomes are: </h2>"""
+
+
+              for chromosome in karyotype_data:  # iteration to print all the chromosomes
+                  contents += f"""<p> -- {chromosome} </p>"""
+
+              contents += f"""<p>Go back to the main page: <a href="/">Main page </a></p> </body></html>"""  # to return to the main page = index.html
+
 
 
 
@@ -169,6 +187,18 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
               species_name, specie = pairs[0].split("=")
               chromosome_index, chromosome = pairs[1].split("=")
 
+              # html for when no chromosome index is written
+              contents = f"""<!DOCTYPE html>                         
+                                        <html lang = "en">
+                                        <head>
+                                         <meta charset = "utf-8" >
+                                         <title>ERROR</title>
+                                        </head>
+                                        <body style="background-color: red">
+                                        <h1>ERROR</h1>
+                                        <h2> INVALID VALUE </h2>
+                                        <p> Introduce a valid integer value for chromosome</p>
+                                        <p>Go back to the Main Page: <a href="/">Main page</a></p> </body></html>"""
 
               ENDPOINT = 'info/assembly/'  # we add ENDPOINT to URL
               PARAMS = '?content-type=application/json'
@@ -196,24 +226,13 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
                                               <html lang = "en">
                                               <head>
                                               <meta charset = "utf-8" >
-                                              <title> Length Chromosome</title >
+                                              <title> Length Chromosome </title >
                                               </head>
                                               <body style="background-color:#DCF3FB">
                                               <h1 style="color:#32A2C9">Chromosome Length</h1>
                                               <p style="color:#19B4E6"><b> The length of the {chromosome} {specie} chromosome is: {length}</b></p>
                                               <p>Go back to the Main Page: <a href="/"> Main page</a></p> </body></html>"""
 
-                  else: # html for when no chromosome index is written
-                      content = f"""<!DOCTYPE html>                
-                                              <html lang = "en">
-                                              <head>
-                                               <meta charset = "utf-8" >
-                                               <title>ERROR</title>
-                                              </head>
-                                              <body style="background-color: red">
-                                              <h1>ERROR --> INVALID VALUE</h1>
-                                              <p> Introduce a valid integer value for chromosome</p>
-                                              <p>Go back to the Main Page: <a href="/">Main page</a></p> </body></html>"""
 
 
 
