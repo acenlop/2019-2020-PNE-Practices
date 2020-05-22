@@ -110,7 +110,7 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
                           contents += f"""<p>The species are: </p>"""
                           for specie in limit_list:         #iteration to print
                               contents += f"""<p> - {specie} </p>"""
-                  contents += f"""<p> Go back to the Main Page: <a href="/">Main page</a> </p> </body></html>"""     #to go back to the main page = index.html
+                  contents += f"""<p style="color:#19B4E6"> Go back to the Main Page: <a href="/">Main page</a> </p> </body></html>"""     #to go back to the main page = index.html
 
 
           #------Karyotype
@@ -170,7 +170,7 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
               for chromosome in karyotype_data:  # iteration to print all the chromosomes
                   contents += f"""<p> -- {chromosome} </p>"""
 
-              contents += f"""<p>Go back to the main page: <a href="/">Main page </a></p> </body></html>"""  # to return to the main page = index.html
+              contents += f"""<p style="color:#19B4E6">Go back to the main page: <a href="/">Main page </a></p> </body></html>"""  # to return to the main page = index.html
 
 
 
@@ -231,7 +231,7 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
                                               <body style="background-color:#DCF3FB">
                                               <h1 style="color:#32A2C9">Chromosome Length</h1>
                                               <p style="color:#19B4E6"><b> The length of the {chromosome} {specie} chromosome is: {length}</b></p>
-                                              <p>Go back to the Main Page: <a href="/"> Main page</a></p> </body></html>"""
+                                              <p style="color:#19B4E6">Go back to the Main Page: <a href="/"> Main page</a></p> </body></html>"""
 
 
 
@@ -257,7 +257,7 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
 
               contents += f"""<body style="background-color:#FCF7DC">
                             <h1 style="color:#D6085C"> Gene Sequence </h1>
-                            <p style="color:#D6085C"><b>The sequence of gene {name_seq} is: </b></p>"""
+                            <p style="color:#D24981"><b>The sequence of gene {name_seq} is: </b></p>"""
 
                       # First Endpoint (homosapiens) and program
 
@@ -301,8 +301,8 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
               data2 = json.loads(data2)  # loads(). is a method from JSON library  (read JSON response)
 
               sequence = data2["seq"]
-              contents += f"""<p style="color:#D6085C">{sequence}</p>
-                                <p>Go back to the Main Page: <a href="/"> Main page</a></p> </body></html>""" #redirects to main page
+              contents += f"""<p style="color:#D24981">{sequence}</p>
+                                <p style="color:#D24981">Go back to the Main Page: <a href="/"> Main page</a></p> </body></html>""" #redirects to main page
 
 
 
@@ -324,7 +324,7 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
 
               contents += f"""<body style="background-color:#FCF7DC">
                                 <h1 style="color:#D6085C"> Gene Information </h1>
-                                <p style="color:#D6085C"> The information about gene {name_seq} is:  </p>"""
+                                <p style="color:#D25B8C"> The information about gene {name_seq} is:  </p>"""
 
                           # First Endpoint and program
 
@@ -370,12 +370,12 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
 
               length = int(data2["end"]) - int(data2["start"])
 
-              contents += f"""<p style="color:#D6085C"> The gene starts at: {data2["start"]} </p>
-                              <p style="color:#D6085C"> The gene ends at: {data2["end"]} </p>
-                              <p style="color:#D6085C"> The gene length is: {length}</p>
-                              <p style="color:#D6085C"> The gene id is at: {id_gene} </p> 
-                              <p style="color:#D6085C"> The gene is on chromosome: {data2["seq_region_name"]} </p>
-                              <p> Go back to the Main Page: <a href="/">Main page</a> </p> </body></html>"""  #redirects to main page
+              contents += f"""<p style="color:#D24981"> - The gene starts at: {data2["start"]} </p>
+                              <p style="color:#D24981"> - The gene ends at: {data2["end"]} </p>
+                              <p style="color:#D24981"> - The gene length is: {length}</p>
+                              <p style="color:#D24981"> - The gene id is at: {id_gene} </p> 
+                              <p style="color:#D24981"> - The gene is on chromosome: {data2["seq_region_name"]} </p>
+                              <p style="color:#D24981"> Go back to the Main Page: <a href="/">Main page</a> </p> </body></html>"""  #redirects to main page
 
           # ------GeneCalc
 
@@ -439,7 +439,7 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
 
               contents += f"""<body style="background-color:#FCF7DC">
                                 <h1 style="color:#D6085C"> Gene Calculations </h1>
-                                <p style="color:#D6085C"> The length of gene {name_seq} is: {sequence.len()} </p>"""
+                                <p style="color:#D24981"> The length of gene {name_seq} is: {sequence.len()} </p>"""
 
               BASES = ["A", "T", "G", "C"]
 
@@ -447,7 +447,7 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
                   perc_base = round(sequence.count_base(base) * 100 / sequence.len(), 2)
                   contents += f"""<p> {base} : {sequence.count_base(base)} ({perc_base}%) </p>"""
 
-              contents += f"""<p> Go back to the Main Page: <a href="/">Main page</a> </p> </body></html>"""  # redirects to main page
+              contents += f"""<p style="color:#D24981"> Go back to the Main Page: <a href="/">Main page</a> </p> </body></html>"""  # redirects to main page
 
           # ------GeneList
 
@@ -491,9 +491,9 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
 
               for element in data:
                   print(element["external_name"])
-                  contents += f"""<p style="color:#D6085C">{element["external_name"]}</p>"""
+                  contents += f"""<p style="color:#D24981">{element["external_name"]}</p>"""
 
-              contents += f"""<p> Go back to the Main Page: <a href="/">Main page</a></p> </body></html>"""
+              contents += f"""<p style="color:#D24981"> Go back to the Main Page: <a href="/">Main page</a></p> </body></html>"""
 
 
 
