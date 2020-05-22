@@ -63,7 +63,7 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
                               </head>
                               <body style="background-color:#DCF3FB">
                               <h1 style="color:#32A2C9"> List of species</h1>
-                              <p style="color:#19B4E6"><b>The total number of species in ensembl is: 267</b></p>"""
+                              <p style="color:#19B4E6"><b>The total number of species in ensembl is: 286</b></p>"""
 
               get_value = list_resource[1]    #go to the first argument
               seq_n = get_value.split('?')    #splits the argument by ?
