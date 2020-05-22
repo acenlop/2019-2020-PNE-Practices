@@ -42,7 +42,7 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
       contents = Path('Error.html').read_text()    #in case of error
       self.send_response(404)
 
-      #-----------------------------MAIN PROGRAM------------------------------
+      #----------------------------------- MAIN PROGRAM ---------------------------------
 
 
       try:
@@ -51,7 +51,7 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
               contents = Path('index.html').read_text()     #contents in index.html
               self.send_response(200)
 
-
+          # --------------------------- BASIC LEVEL ------------------------------------
           # ------ListSpecies
 
           elif first_resource == "/listSpecies":     #list of the names of species stored in the ensembl
@@ -169,16 +169,6 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
               species_name, specie = pairs[0].split("=")
               chromosome_index, chromosome = pairs[1].split("=")
 
-              # html for when no chromosome index is written
-              content = f"""<!DOCTYPE html>                
-                                        <html lang = "en">
-                                        <head>
-                                         <meta charset = "utf-8" >
-                                         <title>ERROR</title >
-                                        </head>
-                                        <body>
-                                        <p>ERROR INVALID VALUE. Introduce an integer value for chromosome</p>
-                                        <a href="/">Main page</a></body></html>"""
 
               ENDPOINT = 'info/assembly/'  # we add ENDPOINT to URL
               PARAMS = '?content-type=application/json'
@@ -203,18 +193,31 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
                   if chromo["name"] == str(chromosome):
                       length = chromo["length"]
                       contents = f"""<!DOCTYPE html>
-                                                <html lang = "en">
-                                                <head>
-                                                <meta charset = "utf-8" >
-                                                <title> Length Chromosome</title >
-                                                </head>
-                                                <body style="background-color:#DCF3FB">
-                                                <h1 style="color:#32A2C9">Chromosome Length</h1>
-                                                <p style="color:#19B4E6"><b> The length of the chromosome is: {length}</b></p>
-                                                <p>Go back to the Main Page: <a href="/"> Main page</a></p>"""
+                                              <html lang = "en">
+                                              <head>
+                                              <meta charset = "utf-8" >
+                                              <title> Length Chromosome</title >
+                                              </head>
+                                              <body style="background-color:#DCF3FB">
+                                              <h1 style="color:#32A2C9">Chromosome Length</h1>
+                                              <p style="color:#19B4E6"><b> The length of chromosome {chromosome} is: {length}</b></p>
+                                              <p>Go back to the Main Page: <a href="/"> Main page</a></p>"""
+
+                  else: # html for when no chromosome index is written
+                      content = f"""<!DOCTYPE html>                
+                                              <html lang = "en">
+                                              <head>
+                                               <meta charset = "utf-8" >
+                                               <title>ERROR</title>
+                                              </head>
+                                              <body style="background-color: red">
+                                              <h1>ERROR --> INVALID VALUE</h1>
+                                              <p> Introduce a valid integer value for chromosome</p>
+                                              <p>Go back to the Main Page: <a href="/">Main page</a></p> </body></html>"""
 
 
 
+          #---------------------------------- MEDIUM LEVEL ------------------------------------------
 
           # ------GeneSeq
 
@@ -222,8 +225,8 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
               contents = f"""<!DOCTYPE html>
                               <html lang = "en">          
                               <head>
-                              <meta charset = "utf-8"
-                              <title> Gene Sequence </title>
+                              <meta charset = "utf-8">
+                              <title> Gene Sequence </title >
                               </head>"""
 
 
@@ -233,7 +236,9 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
               seq_n = get_value.split('?')     # We get the arguments that go after the ? symbo
               seq_name, name_seq = seq_n[0].split("=")
 
-              contents += f"""<p> The sequence of gene {name_seq} is:  </p>"""
+              contents += f"""<body style="background-color:#FCF7DC">
+                            <h1 style="color:#D6085C"> Gene Sequence </h1>
+                            <p style="color:#D6085C"><b>The sequence of gene {name_seq} is: </b></p>"""
 
                       # First Endpoint (homosapiens) and program
 
@@ -277,7 +282,8 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
               data2 = json.loads(data2)  # loads(). is a method from JSON library  (read JSON response)
 
               sequence = data2["seq"]
-              contents += f"""<p>{sequence}</p><a href="/">Main page</a></body></html>""" #redirects to main page
+              contents += f"""<p style="color:#D6085C">{sequence}</p>
+                                <p>Go back to the Main Page: <a href="/"> Main page</a></p> </body></html>""" #redirects to main page
 
 
 
@@ -287,7 +293,7 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
               contents = f"""<!DOCTYPE html>
                                   <html lang = "en">          
                                   <head>
-                                  <meta charset = "utf-8"
+                                  <meta charset = "utf-8">
                                   <title> Gene Information</title>
                                   </head>"""
 
@@ -297,7 +303,9 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
               seq_n = get_value.split('?')  # We get the arguments that go after the ? symbol
               seq_name, name_seq = seq_n[0].split("=")
 
-              contents += f"""<p> The information of the gene {name_seq} is:  </p>"""
+              contents += f"""<body style="background-color:#FCF7DC">
+                                <h1 style="color:#D6085C"> Gene Information </h1>
+                                <p style="color:#D6085C"> The information about gene {name_seq} is:  </p>"""
 
                           # First Endpoint and program
 
@@ -343,10 +351,12 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
 
               length = int(data2["end"]) - int(data2["start"])
 
-              contents += f"""<p> The gene starts at: {data2["start"]} </p><p> The gene ends at: {data2["end"]} </p>
-                              <p> The gene length is: {length}</p>
-                              <p> The gene id is at: {id_gene} </p> <p> The gene is on chromosome: {data2["seq_region_name"]} </p>
-                              <a href="/">Main page</a></body></html>"""  #redirects to main page
+              contents += f"""<p style="color:#D6085C"> The gene starts at: {data2["start"]} </p>
+                              <p style="color:#D6085C"> The gene ends at: {data2["end"]} </p>
+                              <p style="color:#D6085C"> The gene length is: {length}</p>
+                              <p style="color:#D6085C"> The gene id is at: {id_gene} </p> 
+                              <p style="color:#D6085C"> The gene is on chromosome: {data2["seq_region_name"]} </p>
+                              <p> Go back to the Main Page: <a href="/">Main page</a> </p> </body></html>"""  #redirects to main page
 
           # ------GeneCalc
 
@@ -354,8 +364,8 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
               contents = f"""<!DOCTYPE html>
                                           <html lang = "en">          
                                           <head>
-                                          <meta charset = "utf-8"
-                                          <title> Gene Calculations</title>
+                                          <meta charset = "utf-8">
+                                          <title> Gene Calculations </title>
                                           </head>"""
 
               get_value = list_resource[1]  # go to the first argument
@@ -408,7 +418,9 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
               sequence = Seq(data2["seq"])
 
 
-              contents += f"""<p> The length of gene {name_seq} is: {sequence.len()} </p>"""
+              contents += f"""<body style="background-color:#FCF7DC">
+                                <h1 style="color:#D6085C"> Gene Calculations </h1>
+                                <p style="color:#D6085C"> The length of gene {name_seq} is: {sequence.len()} </p>"""
 
               BASES = ["A", "T", "G", "C"]
 
@@ -416,7 +428,7 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
                   perc_base = round(sequence.count_base(base) * 100 / sequence.len(), 2)
                   contents += f"""<p> {base} : {sequence.count_base(base)} ({perc_base}%) </p>"""
 
-              contents += f"""<a href="/">Main page</a></body></html>"""  # redirects to main page
+              contents += f"""<p> Go back to the Main Page: <a href="/">Main page</a> </p> </body></html>"""  # redirects to main page
 
           # ------GeneList
 
@@ -424,8 +436,8 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
               contents = f"""<!DOCTYPE html>
                                 <html lang = "en">          
                                 <head>
-                                <meta charset = "utf-8"
-                                <title> Gene List</title>
+                                <meta charset = "utf-8">
+                                <title> Gene List </title>
                                 </head>"""
               pair = list_resource[1]  # go to the first argument
 
@@ -436,7 +448,9 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
               chromosome_start, start = pairs[1].split("=")
               chromosome_end, end = pairs[2].split("=")
 
-              contents += f"""<p> List of genes of the chromosome {chromo}, which goes from {start} to {end} </p>"""
+              contents += f"""<body style="background-color:#FCF7DC">
+                                <h1 style="color:#D6085C"> Gene List </h1>
+                                <p style="color:#D6085C"> List of genes of the chromosome {chromo}, which goes from {start} to {end} </p>"""
 
               ENDPOINT = 'overlap/region/human/'  # we add ENDPOINT to URL
               PARAMS = '?feature=gene;content-type=application/json'
@@ -458,9 +472,9 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
 
               for element in data:
                   print(element["external_name"])
-                  contents += f"""<p>{element["external_name"]}</p>"""
+                  contents += f"""<p style="color:#D6085C">{element["external_name"]}</p>"""
 
-              contents += f"""<a href="/">Main page</a></body></html>"""
+              contents += f"""<p> Go back to the Main Page: <a href="/">Main page</a></p> </body></html>"""
 
 
 
