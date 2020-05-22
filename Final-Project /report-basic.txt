@@ -917,7 +917,7 @@ http://127.0.0.1:8080/chromosomeLength?Specie=human&Chromosome=1
    </head>
    <body style="background-color:#DCF3FB">
       <h1 style="color:#32A2C9">Chromosome Length</h1>
-      <p style="color:#19B4E6"><b> The length of chromosome 1 is: 248956422</b></p>
+      <p style="color:#19B4E6"><b> The length of the 1 human chromosome is: 248956422</b></p>
       <p>Go back to the Main Page: <a href="/"> Main page</a></p>
    </body>
 </html>
@@ -938,7 +938,7 @@ http://127.0.0.1:8080/chromosomeLength?Specie=human&Chromosome=10
    </head>
    <body style="background-color:#DCF3FB">
       <h1 style="color:#32A2C9">Chromosome Length</h1>
-      <p style="color:#19B4E6"><b> The length of chromosome 10 is: 133797422</b></p>
+      <p style="color:#19B4E6"><b> The length of 10 human chromosome is: 133797422</b></p>
       <p>Go back to the Main Page: <a href="/"> Main page</a></p>
    </body>
 </html>
@@ -959,7 +959,7 @@ http://127.0.0.1:8080/chromosomeLength?Specie=human&Chromosome=Y
    </head>
    <body style="background-color:#DCF3FB">
       <h1 style="color:#32A2C9">Chromosome Length</h1>
-      <p style="color:#19B4E6"><b> The length of chromosome Y is: 57227415</b></p>
+      <p style="color:#19B4E6"><b> The length of the Y human chromosome is: 57227415</b></p>
       <p>Go back to the Main Page: <a href="/"> Main page</a></p>
    </body>
 </html>
@@ -968,30 +968,90 @@ http://127.0.0.1:8080/chromosomeLength?Specie=human&Chromosome=Y
 
 * Input:
 
-http://127.0.0.1:8080/chromosomeLength?Specie=human&Chromosome=1
+http://127.0.0.1:8080/chromosomeLength?Specie=human&Chromosome=X
 
 * Output:
+
+<!DOCTYPE html>
+<html lang = "en">
+   <head>
+      <meta charset = "utf-8" >
+      <title> Length Chromosome</title >
+   </head>
+   <body style="background-color:#DCF3FB">
+      <h1 style="color:#32A2C9">Chromosome Length</h1>
+      <p style="color:#19B4E6"><b> The length of the X human chromosome is: 156040895</b></p>
+      <p>Go back to the Main Page: <a href="/"> Main page</a></p>
+    </body>
+</html>
 
 * TEST 5:
 
 * Input:
 
-http://127.0.0.1:8080/chromosomeLength?Specie=human&Chromosome=1
+http://127.0.0.1:8080/chromosomeLength?Specie=pig&Chromosome=1
 
 * Output:
+
+<!DOCTYPE html>
+<html lang = "en">
+   <head>
+      <meta charset = "utf-8" >
+      <title> Length Chromosome</title >
+   </head>
+   <body style="background-color:#DCF3FB">
+      <h1 style="color:#32A2C9">Chromosome Length</h1>
+      <p style="color:#19B4E6"><b> The length of the 1 pig chromosome is: 274330532</b></p>
+      <p>Go back to the Main Page: <a href="/"> Main page</a></p>
+    </body>
+</html>
 
 * TEST 6:
 
 * Input:
 
-http://127.0.0.1:8080/chromosomeLength?Specie=human&Chromosome=1
+http://127.0.0.1:8080/chromosomeLength?Specie=pig&Chromosome=X
 
 * Output:
+
+<!DOCTYPE html>
+<html lang = "en">
+   <head>
+      <meta charset = "utf-8" >
+      <title> Length Chromosome</title >
+   </head>
+   <body style="background-color:#DCF3FB">
+      <h1 style="color:#32A2C9">Chromosome Length</h1>
+      <p style="color:#19B4E6"><b> The length of the X pig chromosome is: 125939595</b></p>
+      <p>Go back to the Main Page: <a href="/"> Main page</a></p>
+    </body>
+</html>
 
 * TEST 7:
 
 * Input:
 
-http://127.0.0.1:8080/chromosomeLength?Specie=human&Chromosome=1
+http://127.0.0.1:8080/chromosomeLength?Specie=cow&Chromosome=4
+
+* Output:
+
+<!DOCTYPE html>
+<html lang = "en">
+   <head>
+      <meta charset = "utf-8" >
+      <title> Length Chromosome</title >
+   </head>
+   <body style="background-color:#DCF3FB">
+      <h1 style="color:#32A2C9">Chromosome Length</h1>
+      <p style="color:#19B4E6"><b> The length of the 4 cow chromosome is: 120000601</b></p>
+      <p>Go back to the Main Page: <a href="/"> Main page</a></p>
+   </body>
+</html>
+
+* TEST 8:
+
+* Input:
+
+http://127.0.0.1:8080/chromosomeLength?Specie=cow&Chromosome=4
 
 * Output:

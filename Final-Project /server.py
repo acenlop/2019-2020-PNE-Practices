@@ -201,7 +201,7 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
                                               <body style="background-color:#DCF3FB">
                                               <h1 style="color:#32A2C9">Chromosome Length</h1>
                                               <p style="color:#19B4E6"><b> The length of the {chromosome} {specie} chromosome is: {length}</b></p>
-                                              <p>Go back to the Main Page: <a href="/"> Main page</a></p>"""
+                                              <p>Go back to the Main Page: <a href="/"> Main page</a></p> </body></html>"""
 
                   else: # html for when no chromosome index is written
                       content = f"""<!DOCTYPE html>                
