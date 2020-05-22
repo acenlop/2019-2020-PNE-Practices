@@ -1,7 +1,7 @@
-Test report example
-====================
+BASIC REPORT - ALBA CENTENO LOPEZ
+=============================0
 
----> listSpecies endpoint
+---------------------> listSpecies ENDPOINT
 
 * TEST 1:
 
@@ -888,18 +888,234 @@ http://127.0.0.1:8080/listSpecies?limit=286
 </html>
 
 
----> Karyotype endpoint
+---------------------> Karyotype ENDPOINT
 
 * TEST 1:
 
 * Input:
 
-http://127.0.0.1:8080/listSpecies?limit=1
+http://127.0.0.1:8080/karyotype?Specie=human
 
 * Output:
 
+<!DOCTYPE html>
+<html lang = "en">
+   <head>
+      <meta charset = "utf-8">
+      <title> Karyotype </title >
+   </head>
+   <body style="background-color:#DCF3FB">
+      <h1 style="color:#32A2C9">Karyotype</h1>
+      <h2 style="color:#19B4E6"> The chromosomes are: </h2>
+      <p> -- 1 </p>
+      <p> -- 2 </p>
+      <p> -- 3 </p>
+      <p> -- 4 </p>
+      <p> -- 5 </p>
+      <p> -- 6 </p>
+      <p> -- 7 </p>
+      <p> -- 8 </p>
+      <p> -- 9 </p>
+      <p> -- 10 </p>
+      <p> -- 11 </p>
+      <p> -- 12 </p>
+      <p> -- 13 </p>
+      <p> -- 14 </p>
+      <p> -- 15 </p>
+      <p> -- 16 </p>
+      <p> -- 17 </p>
+      <p> -- 18 </p>
+      <p> -- 19 </p>
+      <p> -- 20 </p>
+      <p> -- 21 </p>
+      <p> -- 22 </p>
+      <p> -- X </p>
+      <p> -- Y </p>
+      <p> -- MT </p>
+      <p>Go back to the main page: <a href="/">Main page </a></p>
+   </body>
+</html>
 
----> chromosomeLength endpoint
+* TEST 2:
+
+* Input:
+
+http://127.0.0.1:8080/karyotype?Specie=pig
+
+* Output:
+
+<!DOCTYPE html>
+<html lang = "en">
+   <head>
+      <meta charset = "utf-8">
+      <title> Karyotype </title >
+   </head>
+   <body style="background-color:#DCF3FB">
+      <h1 style="color:#32A2C9">Karyotype</h1>
+      <h2 style="color:#19B4E6"> The chromosomes are: </h2>
+      <p> -- 1 </p>
+      <p> -- 2 </p>
+      <p> -- 3 </p>
+      <p> -- 4 </p>
+      <p> -- 5 </p>
+      <p> -- 6 </p>
+      <p> -- 7 </p>
+      <p> -- 8 </p>
+      <p> -- 9 </p>
+      <p> -- 10 </p>
+      <p> -- 11 </p>
+      <p> -- 12 </p>
+      <p> -- 13 </p>
+      <p> -- 14 </p>
+      <p> -- 15 </p>
+      <p> -- 16 </p>
+      <p> -- 17 </p>
+      <p> -- 18 </p>
+      <p> -- X </p>
+      <p> -- Y </p>
+      <p> -- MT </p>
+      <p>Go back to the main page: <a href="/">Main page </a></p>
+   </body>
+</html>
+
+* TEST 3:
+
+* Input:
+
+http://127.0.0.1:8080/karyotype?Specie=chicken
+
+* Output:
+
+<!DOCTYPE html>
+<html lang = "en">
+   <head>
+      <meta charset = "utf-8">
+      <title> Karyotype </title >
+   </head>
+   <body style="background-color:#DCF3FB">
+      <h1 style="color:#32A2C9">Karyotype</h1>
+      <h2 style="color:#19B4E6"> The chromosomes are: </h2>
+      <p> -- MT </p>
+      <p> -- W </p>
+      <p> -- Z </p>
+      <p> -- 1 </p>
+      <p> -- 2 </p>
+      <p> -- 3 </p>
+      <p> -- 4 </p>
+      <p> -- 5 </p>
+      <p> -- 6 </p>
+      <p> -- 7 </p>
+      <p> -- 8 </p>
+      <p> -- 9 </p>
+      <p> -- 10 </p>
+      <p> -- 11 </p>
+      <p> -- 12 </p>
+      <p> -- 13 </p>
+      <p> -- 14 </p>
+      <p> -- 15 </p>
+      <p> -- 16 </p>
+      <p> -- 17 </p>
+      <p> -- 18 </p>
+      <p> -- 19 </p>
+      <p> -- 20 </p>
+      <p> -- 21 </p>
+      <p> -- 22 </p>
+      <p> -- 23 </p>
+      <p> -- 24 </p>
+      <p> -- 25 </p>
+      <p> -- 26 </p>
+      <p> -- 27 </p>
+      <p> -- 28 </p>
+      <p> -- 30 </p>
+      <p> -- 31 </p>
+      <p> -- 32 </p>
+      <p> -- 33 </p>
+      <p>Go back to the main page: <a href="/">Main page </a></p>
+   </body>
+</html>
+
+* TEST 4:
+
+* Input:
+
+http://127.0.0.1:8080/karyotype?Specie=bee
+
+* Output:
+
+<!DOCTYPE html>
+<html lang = "en">
+   <head>
+      <meta charset = "utf-8">
+      <title> Karyotype </title >
+   </head>
+   <body style="background-color:#DCF3FB">
+      <h1 style="color:#32A2C9">Karyotype</h1>
+      <h2 style="color:#19B4E6"> The chromosomes are: </h2>
+      <p> -- 1 </p>
+      <p> -- 2 </p>
+      <p> -- 3 </p>
+      <p> -- 4 </p>
+      <p> -- 5 </p>
+      <p> -- 6 </p>
+      <p> -- 7 </p>
+      <p> -- 8 </p>
+      <p> -- 9 </p>
+      <p> -- 10 </p>
+      <p> -- 11 </p>
+      <p> -- 12 </p>
+      <p> -- 13 </p>
+      <p> -- 14 </p>
+      <p> -- 15 </p>
+      <p> -- 16 </p>
+      <p>Go back to the main page: <a href="/">Main page </a></p>
+   </body>
+</html>
+
+* TEST 5:
+
+* Input:
+
+http://127.0.0.1:8080/karyotype?Specie=mouse
+
+* Output:
+
+<!DOCTYPE html>
+<html lang = "en">
+   <head>
+      <meta charset = "utf-8">
+      <title> Karyotype </title >
+   </head>
+   <body style="background-color:#DCF3FB">
+      <h1 style="color:#32A2C9">Karyotype</h1>
+      <h2 style="color:#19B4E6"> The chromosomes are: </h2>
+      <p> -- 1 </p>
+      <p> -- 2 </p>
+      <p> -- 3 </p>
+      <p> -- 4 </p>
+      <p> -- 5 </p>
+      <p> -- 6 </p>
+      <p> -- 7 </p>
+      <p> -- 8 </p>
+      <p> -- 9 </p>
+      <p> -- 10 </p>
+      <p> -- 11 </p>
+      <p> -- 12 </p>
+      <p> -- 13 </p>
+      <p> -- 14 </p>
+      <p> -- 15 </p>
+      <p> -- 16 </p>
+      <p> -- 17 </p>
+      <p> -- 18 </p>
+      <p> -- 19 </p>
+      <p> -- X </p>
+      <p> -- Y </p>
+      <p> -- MT </p>
+      <p>Go back to the main page: <a href="/">Main page </a></p>
+   </body>
+</html>
+
+
+---------------------> chromosomeLength ENDPOINT
 
 * TEST 1:
 
@@ -1055,3 +1271,16 @@ http://127.0.0.1:8080/chromosomeLength?Specie=cow&Chromosome=4
 http://127.0.0.1:8080/chromosomeLength?Specie=cow&Chromosome=4
 
 * Output:
+
+<!DOCTYPE html>
+<html lang = "en">
+   <head>
+      <meta charset = "utf-8" >
+      <title> Length Chromosome </title >
+   </head>
+   <body style="background-color:#DCF3FB">
+      <h1 style="color:#32A2C9">Chromosome Length</h1>
+      <p style="color:#19B4E6"><b> The length of the 5 mouse chromosome is: 151834684</b></p>
+      <p>Go back to the Main Page: <a href="/"> Main page</a></p>
+   </body>
+</html>
