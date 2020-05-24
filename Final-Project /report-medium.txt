@@ -345,7 +345,3 @@ http://127.0.0.1:8080/geneList?Chromosome=18&Start=0&End=60000
       <p style="color:#D24981"> Go back to the Main Page: <a href="/">Main page</a></p>
    </body>
 </html>
-
-
-
-
