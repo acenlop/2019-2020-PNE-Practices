@@ -405,180 +405,8 @@ http://127.0.0.1:8080/listSpecies?limit=120
    </body>
 </html>
 
+
 * TEST 7:
-
-* Input:
-
-http://127.0.0.1:8080/listSpecies?limit=150
-
-* Output:
-
-<!DOCTYPE html>
-<html lang = "en">
-   <head>
-      <meta charset = "utf-8" >
-      <title>List of species in the browser</title >
-   </head>
-   <body style="background-color:#DCF3FB">
-      <h1 style="color:#32A2C9"> List of species</h1>
-      <p style="color:#19B4E6"><b>The total number of species in ensembl is: 286</b></p>
-      <p><b>The number of species you selected are: 150 </b> </p>
-      <p>The species are: </p>
-      <p> - Pig - Rongchang </p>
-      <p> - Pika </p>
-      <p> - African ostrich </p>
-      <p> - Nile tilapia </p>
-      <p> - Channel catfish </p>
-      <p> - West African mud turtle </p>
-      <p> - Channel bull blenny </p>
-      <p> - Sooty mangabey </p>
-      <p> - Dolphin </p>
-      <p> - Naked mole-rat male </p>
-      <p> - Brown trout </p>
-      <p> - Eastern brown snake </p>
-      <p> - Mouse CAST/EiJ </p>
-      <p> - Spiny chromis </p>
-      <p> - Gorilla </p>
-      <p> - Silver-eye </p>
-      <p> - Sloth </p>
-      <p> - Eurasian sparrowhawk </p>
-      <p> - Mouse AKR/J </p>
-      <p> - Sailfin molly </p>
-      <p> - Greater bamboo lemur </p>
-      <p> - Mangrove rivulus </p>
-      <p> - Platypus </p>
-      <p> - Live sharksucker </p>
-      <p> - Megabat </p>
-      <p> - Mouse NOD/ShiLtJ </p>
-      <p> - Ferret </p>
-      <p> - Coelacanth </p>
-      <p> - Lion </p>
-      <p> - Siamese fighting fish </p>
-      <p> - Pig - Wuzhishan </p>
-      <p> - Brazilian guinea pig </p>
-      <p> - Sheepshead minnow </p>
-      <p> - Beluga whale </p>
-      <p> - Domestic yak </p>
-      <p> - Orbiculate cardinalfish </p>
-      <p> - Chinese hamster CHOK1GS </p>
-      <p> - Kakapo </p>
-      <p> - Orangutan </p>
-      <p> - Daurian ground squirrel </p>
-      <p> - Pig - Bamei </p>
-      <p> - Mouse BALB/cJ </p>
-      <p> - Common carp huanghe </p>
-      <p> - Three-toed box turtle </p>
-      <p> - Tongue sole </p>
-      <p> - Chimpanzee </p>
-      <p> - Ma's night monkey </p>
-      <p> - Red-bellied piranha </p>
-      <p> - Pig - Tibetan </p>
-      <p> - Drill </p>
-      <p> - Anole lizard </p>
-      <p> - Duck </p>
-      <p> - Common carp german mirror </p>
-      <p> - Chilean tinamou </p>
-      <p> - Marmoset </p>
-      <p> - Chinese medaka </p>
-      <p> - Greater amberjack </p>
-      <p> - Mouse </p>
-      <p> - Dark-eyed junco </p>
-      <p> - Mouse DBA/2J </p>
-      <p> - Arctic ground squirrel </p>
-      <p> - Pig </p>
-      <p> - Mallard </p>
-      <p> - Dog - Great Dane </p>
-      <p> - Great Tit </p>
-      <p> - Pig - Pietrain </p>
-      <p> - Mainland tiger snake </p>
-      <p> - Pig - Jinhua </p>
-      <p> - Lesser hedgehog tenrec </p>
-      <p> - Climbing perch </p>
-      <p> - Tuatara </p>
-      <p> - Wild yak </p>
-      <p> - Bushbaby </p>
-      <p> - Degu </p>
-      <p> - Siberian musk deer </p>
-      <p> - Northern pike </p>
-      <p> - Pig - Meishan </p>
-      <p> - Gilthead seabream </p>
-      <p> - Kangaroo rat </p>
-      <p> - Ring-necked pheasant </p>
-      <p> - Mummichog </p>
-      <p> - American mink </p>
-      <p> - Tasmanian devil </p>
-      <p> - Horned golden-line barbel </p>
-      <p> - Shrew mouse </p>
-      <p> - Golden Hamster </p>
-      <p> - Pachon cavefish </p>
-      <p> - Mouse PWK/PhJ </p>
-      <p> - Hybrid - Bos Taurus </p>
-      <p> - Canada lynx </p>
-      <p> - Wallaby </p>
-      <p> - Argentine black and white tegu </p>
-      <p> - Monterrey platyfish </p>
-      <p> - Blue tit </p>
-      <p> - Japanese quail </p>
-      <p> - Microbat </p>
-      <p> - Panda </p>
-      <p> - Chinook salmon </p>
-      <p> - Hedgehog </p>
-      <p> - Ryukyu mouse </p>
-      <p> - Chinese hamster CriGri </p>
-      <p> - Tree Shrew </p>
-      <p> - Central bearded dragon </p>
-      <p> - Amazon molly </p>
-      <p> - Helmeted guineafowl </p>
-      <p> - Stickleback </p>
-      <p> - Northern American deer mouse </p>
-      <p> - Saccharomyces cerevisiae </p>
-      <p> - Dog - Basenji </p>
-      <p> - Golden eagle </p>
-      <p> - Tiger tail seahorse </p>
-      <p> - Chacoan peccary </p>
-      <p> - Japanese medaka HdrR </p>
-      <p> - Lamprey </p>
-      <p> - Mexican tetra </p>
-      <p> - Common snapping turtle </p>
-      <p> - American black bear </p>
-      <p> - Okarito brown kiwi </p>
-      <p> - Gouldian finch </p>
-      <p> - Mongolian gerbil </p>
-      <p> - C.intestinalis </p>
-      <p> - Mouse LP/J </p>
-      <p> - Great spotted kiwi </p>
-      <p> - Western mosquitofish </p>
-      <p> - Periophthalmus magnuspinnatus </p>
-      <p> - Mouse 129S1/SvImJ </p>
-      <p> - Flycatcher </p>
-      <p> - Yellow-billed parrot </p>
-      <p> - Mouse C57BL/6NJ </p>
-      <p> - Pig-tailed macaque </p>
-      <p> - Dingo </p>
-      <p> - Rainbow trout </p>
-      <p> - Alpaca </p>
-      <p> - Zig-zag eel </p>
-      <p> - Hagfish </p>
-      <p> - Common carp </p>
-      <p> - Armadillo </p>
-      <p> - Pig - Largewhite </p>
-      <p> - Opossum </p>
-      <p> - Lyretail cichlid </p>
-      <p> - Goat </p>
-      <p> - Barramundi perch </p>
-      <p> - Small tree finch </p>
-      <p> - Mouse WSB/EiJ </p>
-      <p> - American beaver </p>
-      <p> - Pig - Landrace </p>
-      <p> - Elephant shark </p>
-      <p> - Sperm whale </p>
-      <p> - Spotted gar </p>
-      <p> - Mouse CBA/J </p>
-      <p> Go back to the Main Page: <a href="/">Main page</a> </p>
-   </body>
-</html>
-
-* TEST 8:
 
 * Input:
 
@@ -887,6 +715,27 @@ http://127.0.0.1:8080/listSpecies?limit=286
    </body>
 </html>
 
+* TEST 8:
+
+* Input:
+
+http://127.0.0.1:8080/listSpecies?limit=1000
+
+* Output:
+
+<!DOCTYPE html>
+<html lang = "en">
+   <head>
+      <meta charset = "utf-8" >
+      <title>ERROR</title >
+   </head>
+   <body style="background-color:red">
+      <h1>ERROR</h1>
+      <p>NUMBER INTRODUCED IS OUT OF RANGE. Introduce a valid limit value, between 0 and 286</p>
+      <p> Go back to the Main Page: <a href="/">Main page</a> </p>
+   </body>
+</html>
+
 
 ---------------------> Karyotype ENDPOINT
 
@@ -1075,42 +924,20 @@ http://127.0.0.1:8080/karyotype?Specie=bee
 
 * Input:
 
-http://127.0.0.1:8080/karyotype?Specie=mouse
+http://127.0.0.1:8080/karyotype?Specie=
 
 * Output:
 
 <!DOCTYPE html>
-<html lang = "en">
+<html lang="en">
    <head>
-      <meta charset = "utf-8">
-      <title> Karyotype </title >
+      <meta charset="UTF-8">
+      <title>Error</title>
    </head>
-   <body style="background-color:#DCF3FB">
-      <h1 style="color:#32A2C9">Karyotype</h1>
-      <h2 style="color:#19B4E6"> The chromosomes are: </h2>
-      <p> -- 1 </p>
-      <p> -- 2 </p>
-      <p> -- 3 </p>
-      <p> -- 4 </p>
-      <p> -- 5 </p>
-      <p> -- 6 </p>
-      <p> -- 7 </p>
-      <p> -- 8 </p>
-      <p> -- 9 </p>
-      <p> -- 10 </p>
-      <p> -- 11 </p>
-      <p> -- 12 </p>
-      <p> -- 13 </p>
-      <p> -- 14 </p>
-      <p> -- 15 </p>
-      <p> -- 16 </p>
-      <p> -- 17 </p>
-      <p> -- 18 </p>
-      <p> -- 19 </p>
-      <p> -- X </p>
-      <p> -- Y </p>
-      <p> -- MT </p>
-      <p>Go back to the main page: <a href="/">Main page </a></p>
+   <body style="background-color: #DF6868;">
+      <h1>ERROR</h1>
+      <p> Introduce a valid species to find its karyotype </p>
+      <p> Click here to go back to the main page: <a href="/"> Main page </a> </p>
    </body>
 </html>
 
@@ -1268,19 +1095,19 @@ http://127.0.0.1:8080/chromosomeLength?Specie=cow&Chromosome=4
 
 * Input:
 
-http://127.0.0.1:8080/chromosomeLength?Specie=cow&Chromosome=4
+http://127.0.0.1:8080/chromosomeLength?Specie=&Chromosome=
 
 * Output:
 
 <!DOCTYPE html>
-<html lang = "en">
+<html lang="en">
    <head>
-      <meta charset = "utf-8" >
-      <title> Length Chromosome </title >
+      <meta charset="UTF-8">
+      <title>Error</title>
    </head>
-   <body style="background-color:#DCF3FB">
-      <h1 style="color:#32A2C9">Chromosome Length</h1>
-      <p style="color:#19B4E6"><b> The length of the 5 mouse chromosome is: 151834684</b></p>
-      <p>Go back to the Main Page: <a href="/"> Main page</a></p>
+   <body style="background-color: #DF6868;">
+      <h1>ERROR</h1>
+      <p> Introduce a valid species and chromosome to calculate its length </p>
+      <p> Click here to go back to the main page: <a href="/"> Main page </a> </p>
    </body>
 </html>
