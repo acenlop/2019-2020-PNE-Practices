@@ -1107,7 +1107,8 @@ http://127.0.0.1:8080/chromosomeLength?Specie=human&Chromosome=
    </head>
    <body style="background-color: #DF6868;">
       <h1>ERROR</h1>
-      <p> Introduce a valid species and chromosome to calculate its length </p>
-      <p> Click here to go back to the main page: <a href="/"> Main page </a> </p>
+      <h2> INVALID VALUE </h2>
+      <p> Introduce a valid integer value for chromosome</p>
+      <p>Go back to the Main Page: <a href="/">Main page</a></p>
    </body>
 </html>
