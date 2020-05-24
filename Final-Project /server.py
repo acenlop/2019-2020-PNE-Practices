@@ -129,10 +129,6 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
                   specie_name, name_sp = seq_n[0].split("=")  # obtain species after the =
 
 
-                  endpoint = 'info/assembly/'  # stablishes the endpoint and its parameters for the request
-                  parameters = '?content-type=application/json'
-                  request = endpoint + full_name + parameters
-
 
                   ENDPOINT = 'info/assembly/'  # we add ENDPOINT to URL
                   PARAMS = '?content-type=application/json'
