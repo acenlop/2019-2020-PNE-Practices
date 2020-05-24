@@ -198,7 +198,7 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
                                              <meta charset = "utf-8" >
                                              <title>ERROR</title>
                                             </head>
-                                            <body style="background-color: red">
+                                            <body style="background-color: #DCF3FB">
                                             <h1>ERROR</h1>
                                             <h2> INVALID VALUE </h2>
                                             <p> Introduce a valid integer value for chromosome</p>
