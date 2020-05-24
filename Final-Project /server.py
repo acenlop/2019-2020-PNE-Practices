@@ -156,6 +156,7 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
                       else:
                           full_name += name_sp[n]  # in case its a one word species
 
+
                   ENDPOINT = 'info/assembly/'  # we add ENDPOINT to URL
                   PARAMS = '?content-type=application/json'
                   REQUEST = ENDPOINT + full_name + PARAMS  # for connecting
@@ -173,6 +174,7 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
                   data = response.read().decode("utf-8")  # It is necessary to decode the information = utf-8
                   data = json.loads(data)
                   karyotype_data = data["karyotype"]
+
 
                   contents = f"""<!DOCTYPE html>
                                               <html lang = "en">
@@ -254,6 +256,8 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
                   data = json.loads(data)  # loads(). is a method from JSON library  (read JSON response)
 
                   chromosome_data = data["top_level_region"]  # list to save all the chromosomes
+
+                  specie = specie.replace('+', ' ')
 
                   for chromo in chromosome_data:  # iteration to get all chromo from list
                       if chromo["name"] == str(chromosome):
