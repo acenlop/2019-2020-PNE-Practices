@@ -69,60 +69,71 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
               seq_n = get_value.split('?')  # splits the argument by ?
               seq_name, index = seq_n[0].split("=")  # then splits by the =
 
+
               # menu of iteration to chose the path to act when the limit is inputed
               if index == "":  # no index is inputed --> all list must be printed
                   index = "286"
               index = int(index)
               if index <= 0:  # index less or equal to 0 --> error
-                  contents = Path('Error.html').read_text()
+                  contents = """<!DOCTYPE html> 
+                                         <html lang="en"> 
+                                         <head>
+                                              <meta charset="UTF-8">
+                                              <title>Error</title>
+                                         </head>
+                                         <body style="background-color: #DF6868">
+                                         <h1>ERROR</h1>
+                                         <p> You need to introduce a value greater than 0</p>
+                                         <p> Click here to go back to the main page: <a href="/"> Main page </a> </p>
+                                         </body>
+                                         </html>"""
               if index > 0:  # index more than 0
                   # html to print the total numbers of species selected
                   contents += f"""<p>The number of species you selected are: {index} </p>"""
 
                   # now program starts, gets the requested limit and ...
 
-              ENDPOINT = 'info/species'  # we add ENDPOINT to URL
-              PARAMS = '?content-type=application/json'
-              REQUEST = ENDPOINT + PARAMS
+                  ENDPOINT = 'info/species'  # we add ENDPOINT to URL
+                  PARAMS = '?content-type=application/json'
+                  REQUEST = ENDPOINT + PARAMS
 
-              try:
-                  conn.request('GET', REQUEST)  # connection request
+                  try:
+                      conn.request('GET', REQUEST)  # connection request
 
-              except ConnectionRefusedError:  # If the connection fails we print an error message
-                  print("ERROR! Cannot connect to the Server")
-                  exit()
+                  except ConnectionRefusedError:  # If the connection fails we print an error message
+                      print("ERROR! Cannot connect to the Server")
+                      exit()
 
-              # read response message from server
-              response = conn.getresponse()  # .getresponse() method returns the response information from the server
-              data = response.read().decode("utf-8")  # It is necessary to decode the information
+                  # read response message from server
+                  response = conn.getresponse()  # .getresponse() method returns the response information from the server
+                  data = response.read().decode("utf-8")  # It is necessary to decode the information
 
-              limit_list = []  # list to store all species within limit
-              data = json.loads(data)  # loads(). is a method from JSON library  (read JSON response)
-              limit = data["species"]
+                  limit_list = []  # list to store all species within limit
+                  data = json.loads(data)  # loads(). is a method from JSON library  (read JSON response)
+                  limit = data["species"]
 
-              if index > len(limit):  # in case there are more species than the limit
-                  contents = f"""<!DOCTYPE html>
-                                          <html lang = "en">
-                                          <head>
-                                           <meta charset = "utf-8" >
-                                           <title>ERROR</title >
-                                          </head>
-                                          <body style="background-color:red">
-                                          <h1>ERROR</h1>
-                                          <p>NUMBER INTRODUCED IS OUT OF RANGE. Introduce a valid limit value, between 0 and 286</p>
-                                          <p> Go back to the Main Page: <a href="/">Main page</a> </p> </body></html>"""
+                  if index > len(limit):  # in case there are more species than the limit
+                      contents = f"""<!DOCTYPE html>
+                                              <html lang = "en">
+                                              <head>
+                                               <meta charset = "utf-8" >
+                                               <title>ERROR</title >
+                                              </head>
+                                              <body style="background-color: #DF6868">
+                                              <h1>ERROR</h1>
+                                              <p>NUMBER INTRODUCED IS OUT OF RANGE. Introduce a valid limit value, between 0 and 286</p>
+                                              <p> Go back to the Main Page: <a href="/">Main page</a> </p> </body></html>"""
 
 
-              else:
-                  for element in limit:  # iteration to get all the species in the limit
-                      limit_list.append(element["display_name"])  # appends to list
+                  else:
+                      for element in limit:  # iteration to get all the species in the limit
+                          limit_list.append(element["display_name"])  # appends to list
 
-                      if len(limit_list) == index:
-                          contents += f"""<p>The species are: </p>"""
-                          for specie in limit_list:  # iteration to print
-                              contents += f"""<p> - {specie} </p>"""
-                  contents += f"""<p style="color:#19B4E6"> Go back to the Main Page: <a href="/">Main page</a> </p> </body></html>"""  # to go back to the main page = index.html
-
+                          if len(limit_list) == index:
+                              contents += f"""<p>The species are: </p>"""
+                              for specie in limit_list:  # iteration to print
+                                  contents += f"""<p> - {specie} </p>"""
+                      contents += f"""<p style="color:#19B4E6"> Go back to the Main Page: <a href="/">Main page</a> </p> </body></html>"""  # to go back to the main page = index.html
 
 
 
@@ -213,7 +224,7 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
                                              <meta charset = "utf-8" >
                                              <title>ERROR</title>
                                             </head>
-                                            <body style="background-color: #DCF3FB">
+                                            <body style="background-color: #DF6868">
                                             <h1>ERROR</h1>
                                             <h2> INVALID VALUE </h2>
                                             <p> Introduce a valid integer value for chromosome</p>
@@ -320,8 +331,8 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
                   id_gene = data[0]
                   id_gene = id_gene["id"]
 
-                          #Second Endpoint and program
 
+                      #Second Endpoint and program
                   SECOND_ENDPOINT = 'sequence/id/'  # second endpoint is to get the specific gene
                   PARAMS = '?content-type=application/json'
                   SECOND_REQUEST = SECOND_ENDPOINT + id_gene + PARAMS
@@ -342,6 +353,8 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
                   sequence = data2["seq"]
                   contents += f"""<p style="color:#D24981">{sequence}</p>
                                     <p style="color:#D24981">Go back to the Main Page: <a href="/"> Main page</a></p> </body></html>""" #redirects to main page
+
+
 
               except KeyError: #in case an invalid gene or no gene are inputed
                   contents = """<!DOCTYPE html> 
