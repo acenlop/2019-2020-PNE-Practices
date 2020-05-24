@@ -69,6 +69,27 @@ http://127.0.0.1:8080/geneSeq?Gen=23
    </body>
 </html>
 
+* TEST 4:
+
+* Input:
+
+http://127.0.0.1:8080/geneSeq?Gen=
+
+* Output:
+
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="UTF-8">
+      <title>Error</title>
+   </head>
+   <body style="background-color: #DF6868;">
+      <h1>ERROR</h1>
+      <p> Introduce a valid human gene to find its sequence </p>
+      <p> Click here to go back to the main page: <a href="/"> Main page </a> </p>
+   </body>
+</html>
+
 ---------------------> geneInfo ENDPOINT
 
 * TEST 1:
@@ -225,6 +246,28 @@ http://127.0.0.1:8080/geneCalc?Gen=23
       <p style="color:#D24981"> Go back to the Main Page: <a href="/">Main page</a> </p>
    </body>
 </html>
+
+* TEST 4:
+
+* Input:
+
+http://127.0.0.1:8080/geneCalc?Gen=
+
+* Output:
+
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="UTF-8">
+      <title>Error</title>
+   </head>
+   <body style="background-color: #DF6868;">
+      <h1>ERROR</h1>
+      <p> Introduce a valid gene for getting calculations about its sequence. </p>
+      <p> Click here to go back to the main page: <a href="/"> Main page </a> </p>
+   </body>
+</html>
+
 
 ---------------------> geneList ENDPOINT
 
