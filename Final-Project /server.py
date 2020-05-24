@@ -175,6 +175,7 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
                   data = json.loads(data)
                   karyotype_data = data["karyotype"]
 
+                  full_name = full_name.replace('%20', ' ')
 
                   contents = f"""<!DOCTYPE html>
                                               <html lang = "en">
@@ -184,7 +185,7 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
                                               </head>
                                               <body style="background-color:#DCF3FB">
                                               <h1 style="color:#32A2C9">Karyotype</h1>
-                                              <h2 style="color:#19B4E6"> The chromosomes are: </h2>"""
+                                              <h2 style="color:#19B4E6"> The chromosomes of the {full_name} are: </h2>"""
 
                   for chromosome in karyotype_data:  # iteration to print all the chromosomes
                       contents += f"""<p> -- {chromosome} </p>"""
