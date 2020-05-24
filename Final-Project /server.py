@@ -87,11 +87,11 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
                                          <p> Click here to go back to the main page: <a href="/"> Main page </a> </p>
                                          </body>
                                          </html>"""
-              if index > 0:  # index more than 0
+              if index > 0:  # index more than 0 -- ok
                   # html to print the total numbers of species selected
                   contents += f"""<p>The number of species you selected are: {index} </p>"""
 
-                  # now program starts, gets the requested limit and ...
+                  # now program starts
 
                   ENDPOINT = 'info/species'  # we add ENDPOINT to URL
                   PARAMS = '?content-type=application/json'
@@ -175,7 +175,7 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
                   data = json.loads(data)
                   karyotype_data = data["karyotype"]
 
-                  full_name = full_name.replace('%20', ' ')
+                  full_name = full_name.replace('%20', ' ')   #it prints nicely
 
                   contents = f"""<!DOCTYPE html>
                                               <html lang = "en">
@@ -258,7 +258,7 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
 
                   chromosome_data = data["top_level_region"]  # list to save all the chromosomes
 
-                  specie = specie.replace('+', ' ')
+                  specie = specie.replace('+', ' ')   #we change it so it prints nicely
 
                   for chromo in chromosome_data:  # iteration to get all chromo from list
                       if chromo["name"] == str(chromosome):
@@ -290,7 +290,7 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
                                          </html>"""
 
 
-          #---------------------------------- MEDIUM LEVEL ------------------------------------------
+          #------------------------------------- MEDIUM LEVEL ------------------------------------------
 
           # ------GeneSeq
 
@@ -316,7 +316,7 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
 
                           # First Endpoint (homosapiens) and program
 
-                  FIRST_ENDPOINT = 'xrefs/symbol/homo_sapiens/'  # first endpoint is to get to the homo sapiens
+                  FIRST_ENDPOINT = 'xrefs/symbol/homo_sapiens/'  # first endpoint is to get to the human gene
                   PARAMS = '?content-type=application/json'
                   FIRST_REQUEST = FIRST_ENDPOINT + name_seq + PARAMS
 
@@ -338,7 +338,7 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
 
 
                       #Second Endpoint and program
-                  SECOND_ENDPOINT = 'sequence/id/'  # second endpoint is to get the specific gene
+                  SECOND_ENDPOINT = 'sequence/id/'  # second endpoint is to get the specific sequence of the inputed gene
                   PARAMS = '?content-type=application/json'
                   SECOND_REQUEST = SECOND_ENDPOINT + id_gene + PARAMS
 
@@ -399,7 +399,7 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
 
                               # First Endpoint and program
 
-                  FIRST_ENDPOINT = 'xrefs/symbol/homo_sapiens/'  # first endpoint is to ....
+                  FIRST_ENDPOINT = 'xrefs/symbol/homo_sapiens/'   # first endpoint is to get to the human gene
                   PARAMS = '?content-type=application/json'
                   FIRST_REQUEST = FIRST_ENDPOINT + name_seq + PARAMS
 
@@ -422,7 +422,7 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
 
                            # Second Endpoint and program
 
-                  SECOND_ENDPOINT = 'lookup/id/'  # second endpoint is to ....
+                  SECOND_ENDPOINT = 'lookup/id/'         # second endpoint is to get the specific sequence of the inputed gene
                   PARAMS = '?content-type=application/json'
                   SECOND_REQUEST = SECOND_ENDPOINT + id_gene + PARAMS
 
@@ -485,7 +485,7 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
 
                               # First Endpoint and program
 
-                  FIRST_ENDPOINT = 'xrefs/symbol/homo_sapiens/'  # first endpoint is to ....
+                  FIRST_ENDPOINT = 'xrefs/symbol/homo_sapiens/'   # first endpoint is to get to the human gene
                   PARAMS = '?content-type=application/json'
                   FIRST_REQUEST = FIRST_ENDPOINT + name_seq + PARAMS
 
@@ -507,7 +507,7 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
 
                           # Second Endpoint and program
 
-                  SECOND_ENDPOINT = 'sequence/id/'  # second endpoint is to ....
+                  SECOND_ENDPOINT = 'sequence/id/'       # second endpoint is to get the specific sequence of the inputed gene
                   SECOND_REQUEST = SECOND_ENDPOINT + id_gene + PARAMS
 
                   try:
@@ -528,10 +528,10 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
 
                   contents += f"""<p style="color:#D24981"> The length of gene {name_seq} is: {sequence.len()} </p>"""
 
-                  BASES = ["A", "T", "G", "C"]
+                  BASES = ["A", "T", "G", "C"]  #list of bases
 
                   for base in BASES:
-                      perc_base = round(sequence.count_base(base) * 100 / sequence.len(), 2)
+                      perc_base = round(sequence.count_base(base) * 100 / sequence.len(), 2)    #calculate the percentage and print it
                       contents += f"""<p> {base} : {sequence.count_base(base)} ({perc_base}%) </p>"""
 
                   contents += f"""<p style="color:#D24981"> Go back to the Main Page: <a href="/">Main page</a> </p> </body></html>"""  # redirects to main page
@@ -572,31 +572,46 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
                   chromosome_start, start = pairs[1].split("=")
                   chromosome_end, end = pairs[2].split("=")
 
-                  contents += f"""<p style="color:#D6085C"> List of genes of the chromosome {chromo}, which goes from {start} to {end} </p>"""
+                  if start == "" or end == "":   # in case no interval is inputed
+                      contents = """<!DOCTYPE html> 
+                                               <html lang="en"> 
+                                               <head>
+                                                    <meta charset="UTF-8">
+                                                    <title>Error</title>
+                                               </head>
+                                               <body style="background-color: #DF6868;">
+                                               <h1>ERROR</h1>
+                                               <p> Introduce a valid interval </p>
+                                               <p> Click here to go back to the main page: <a href="/"> Main page </a> </p>
+                                               </body>
+                                               </html>"""
+                  else:    #interval is ok
 
-                  ENDPOINT = 'overlap/region/human/'  # we add ENDPOINT to URL
-                  PARAMS = '?feature=gene;content-type=application/json'
-                  REQUEST = ENDPOINT + chromo + ":" + start + "-" + end + PARAMS
+                      contents += f"""<p style="color:#D6085C"> List of genes of the chromosome {chromo}, which goes from {start} to {end} </p>"""
+
+                      ENDPOINT = 'overlap/region/human/'  # we add ENDPOINT
+                      PARAMS = '?feature=gene;content-type=application/json'
+                      REQUEST = ENDPOINT + chromo + ":" + start + "-" + end + PARAMS
 
 
-                  try:
-                      conn.request('GET', REQUEST)  # connection request
+                      try:
+                          conn.request('GET', REQUEST)  # connection request
 
-                  except ConnectionRefusedError:  # If the connection fails we print an error message
-                      print("ERROR! Cannot connect to the Server")
-                      exit()
+                      except ConnectionRefusedError:  # If the connection fails we print an error message
+                          print("ERROR! Cannot connect to the Server")
+                          exit()
 
-                  # response message from the server
-                  response = conn.getresponse()  # .getresponse() method that returns the reponse information from the server
+                      # response message from the server
+                      response = conn.getresponse()  # .getresponse() method that returns the reponse information from the server
 
-                  data = response.read().decode("utf-8")  # It is necessary to decode the information
-                  data = json.loads(data)  # loads(). is a method from JSON library  (read JSON response)
+                      data = response.read().decode("utf-8")  # It is necessary to decode the information
+                      data = json.loads(data)  # loads(). is a method from JSON library  (read JSON response)
 
-                  for element in data:
-                      print(element["external_name"])
-                      contents += f"""<p style="color:#D24981">{element["external_name"]}</p>"""
+                      for element in data:
+                          print(element["external_name"])
+                          contents += f"""<p style="color:#D24981">{element["external_name"]}</p>"""
 
-                  contents += f"""<p style="color:#D24981"> Go back to the Main Page: <a href="/">Main page</a></p> </body></html>"""
+                      contents += f"""<p style="color:#D24981"> Go back to the Main Page: <a href="/">Main page</a></p> </body></html>"""
 
               except KeyError: #in case no value or an incorrect one is inputed
                   contents = """<!DOCTYPE html> 
