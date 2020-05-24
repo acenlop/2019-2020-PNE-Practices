@@ -68,8 +68,18 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
               get_value = list_resource[1]  # go to the first argument
               seq_n = get_value.split('?')  # splits the argument by ?
               seq_name, index = seq_n[0].split("=")  # then splits by the =
+
+              # menu of iteration to chose the path to act when the limit is inputed
+              if index == "":  # no index is inputed --> all list must be printed
+                  index = "286"
               index = int(index)
-              contents += f"""<p><b>The number of species you selected are: {index} </b> </p>"""  # prints the total number of species selected
+              if index <= 0:  # index less or equal to 0 --> error
+                  contents = Path('Error.html').read_text()
+              if index > 0:  # index more than 0
+                  # html to print the total numbers of species selected
+                  contents += f"""<p>The number of species you selected are: {index} </p>"""
+
+                  # now program starts, gets the requested limit and ...
 
               ENDPOINT = 'info/species'  # we add ENDPOINT to URL
               PARAMS = '?content-type=application/json'
@@ -128,11 +138,16 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
                   seq_n = get_value.split('?')  # splits the argument by ?
                   specie_name, name_sp = seq_n[0].split("=")  # obtain species after the =
 
-
+                  full_name = ""  # we initialize the variable to keep doble or more word names
+                  for n in range(0, len(name_sp)):  # we iterate to inlude all the characters of the entire name (all words combined with +)
+                      if name_sp[n] == "+":  # when we get a + we create a space with "%20" in the url to be able to search it in the database as a 2 (or more) word species
+                          full_name += "%20"
+                      else:
+                          full_name += name_sp[n]  # in case its a one word species
 
                   ENDPOINT = 'info/assembly/'  # we add ENDPOINT to URL
                   PARAMS = '?content-type=application/json'
-                  REQUEST = ENDPOINT + name_sp + PARAMS  # for connecting
+                  REQUEST = ENDPOINT + full_name + PARAMS  # for connecting
 
                   try:
                       conn.request('GET', REQUEST)  # connection request
@@ -163,7 +178,7 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
 
                   contents += f"""<p style="color:#19B4E6">Go back to the main page: <a href="/">Main page </a></p> </body></html>"""  # to return to the main page = index.html
 
-              except KeyError:
+              except KeyError: #in case no specie is inputed
                   contents = """<!DOCTYPE html> 
                                          <html lang="en"> 
                                          <head>
@@ -204,9 +219,16 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
                                             <p> Introduce a valid integer value for chromosome</p>
                                             <p>Go back to the Main Page: <a href="/">Main page</a></p> </body></html>"""
 
+                  full_name = ""  # we initialize the variable to keep doble or more word names
+                  for n in range(0, len(specie)):  # we iterate to inlude all the characters of the entire name (all words combined with +)
+                      if specie[n] == "+":  # when we get a + we create a space with "%20" in the url to be able to search it in the database as a 2 (or more) word species
+                          full_name += "%20"
+                      else:
+                          full_name += specie[n]  # in case its a one word species
+
                   ENDPOINT = 'info/assembly/'  # we add ENDPOINT to URL
                   PARAMS = '?content-type=application/json'
-                  REQUEST = ENDPOINT + specie + PARAMS
+                  REQUEST = ENDPOINT + full_name + PARAMS
 
                   try:
                       conn.request('GET', REQUEST)  # connection request
@@ -237,7 +259,7 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
                                                   <p style="color:#19B4E6">Go back to the Main Page: <a href="/"> Main page</a></p> </body></html>"""
 
 
-              except KeyError:
+              except KeyError: #in case no specie/chromosome is inputed
                   contents = """<!DOCTYPE html> 
                                          <html lang="en"> 
                                          <head>
@@ -321,7 +343,7 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
                   contents += f"""<p style="color:#D24981">{sequence}</p>
                                     <p style="color:#D24981">Go back to the Main Page: <a href="/"> Main page</a></p> </body></html>""" #redirects to main page
 
-              except KeyError:
+              except KeyError: #in case an invalid gene or no gene are inputed
                   contents = """<!DOCTYPE html> 
                                          <html lang="en"> 
                                          <head>
@@ -407,7 +429,8 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
                                   <p style="color:#D24981"> - The gene id is at: {id_gene} </p> 
                                   <p style="color:#D24981"> - The gene is on chromosome: {data2["seq_region_name"]} </p>
                                   <p style="color:#D24981"> Go back to the Main Page: <a href="/">Main page</a> </p> </body></html>"""  #redirects to main page
-              except KeyError:
+
+              except KeyError: #in case no value or an incorrect one is inputed
                   contents = """<!DOCTYPE html> 
                                          <html lang="en"> 
                                          <head>
@@ -431,7 +454,9 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
                                               <head>
                                               <meta charset = "utf-8">
                                               <title> Gene Calculations </title>
-                                              </head>"""
+                                              </head>
+                                              <body style="background-color:#FCF7DC">
+                                              <h1 style="color:#D6085C"> Gene Calculations </h1>  """
 
                   get_value = list_resource[1]  # go to the first argument
 
@@ -483,9 +508,7 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
                   sequence = Seq(data2["seq"])
 
 
-                  contents += f"""<body style="background-color:#FCF7DC">
-                                    <h1 style="color:#D6085C"> Gene Calculations </h1>
-                                    <p style="color:#D24981"> The length of gene {name_seq} is: {sequence.len()} </p>"""
+                  contents += f"""<p style="color:#D24981"> The length of gene {name_seq} is: {sequence.len()} </p>"""
 
                   BASES = ["A", "T", "G", "C"]
 
@@ -495,7 +518,7 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
 
                   contents += f"""<p style="color:#D24981"> Go back to the Main Page: <a href="/">Main page</a> </p> </body></html>"""  # redirects to main page
 
-              except KeyError:
+              except KeyError: #in case no value or an incorrect one is inputed
                   contents = """<!DOCTYPE html> 
                                          <html lang="en"> 
                                          <head>
@@ -518,7 +541,10 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
                                     <head>
                                     <meta charset = "utf-8">
                                     <title> Gene List </title>
-                                    </head>"""
+                                    </head>
+                                    <body style="background-color:#FCF7DC">
+                                    <h1 style="color:#D6085C"> Gene List </h1>"""
+
                   pair = list_resource[1]  # go to the first argument
 
                   # We have to separate the human gene from the sequence
@@ -528,9 +554,7 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
                   chromosome_start, start = pairs[1].split("=")
                   chromosome_end, end = pairs[2].split("=")
 
-                  contents += f"""<body style="background-color:#FCF7DC">
-                                    <h1 style="color:#D6085C"> Gene List </h1>
-                                    <p style="color:#D6085C"> List of genes of the chromosome {chromo}, which goes from {start} to {end} </p>"""
+                  contents += f"""<p style="color:#D6085C"> List of genes of the chromosome {chromo}, which goes from {start} to {end} </p>"""
 
                   ENDPOINT = 'overlap/region/human/'  # we add ENDPOINT to URL
                   PARAMS = '?feature=gene;content-type=application/json'
@@ -556,7 +580,7 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
 
                   contents += f"""<p style="color:#D24981"> Go back to the Main Page: <a href="/">Main page</a></p> </body></html>"""
 
-              except KeyError:
+              except KeyError: #in case no value or an incorrect one is inputed
                   contents = """<!DOCTYPE html> 
                                          <html lang="en"> 
                                          <head>
