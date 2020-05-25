@@ -729,10 +729,31 @@ http://127.0.0.1:8080/listSpecies?limit=1000
       <meta charset = "utf-8" >
       <title>ERROR</title >
    </head>
-   <body style="background-color:red">
+   <body style="background-color: #DF6868">
       <h1>ERROR</h1>
       <p>NUMBER INTRODUCED IS OUT OF RANGE. Introduce a valid limit value, between 0 and 286</p>
       <p> Go back to the Main Page: <a href="/">Main page</a> </p>
+   </body>
+</html>
+
+* TEST 9:
+
+* Input:
+
+http://127.0.0.1:8080/listSpecies?limit=-2
+
+* Output:
+
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="UTF-8">
+      <title>Error</title>
+   </head>
+   <body style="background-color: #DF6868">
+      <h1>ERROR</h1>
+      <p> You need to introduce a value greater than 0</p>
+      <p> Click here to go back to the main page: <a href="/"> Main page </a> </p>
    </body>
 </html>
 
@@ -924,6 +945,52 @@ http://127.0.0.1:8080/karyotype?Specie=bee
 
 * Input:
 
+http://127.0.0.1:8080/karyotype?Specie=homo+sapiens
+
+* Output:
+
+<!DOCTYPE html>
+<html lang = "en">
+   <head>
+      <meta charset = "utf-8">
+      <title> Karyotype </title >
+   </head>
+   <body style="background-color:#DCF3FB">
+      <h1 style="color:#32A2C9">Karyotype</h1>
+      <h2 style="color:#19B4E6"> The chromosomes of the homo sapiens are: </h2>
+      <p> -- 1 </p>
+      <p> -- 2 </p>
+      <p> -- 3 </p>
+      <p> -- 4 </p>
+      <p> -- 5 </p>
+      <p> -- 6 </p>
+      <p> -- 7 </p>
+      <p> -- 8 </p>
+      <p> -- 9 </p>
+      <p> -- 10 </p>
+      <p> -- 11 </p>
+      <p> -- 12 </p>
+      <p> -- 13 </p>
+      <p> -- 14 </p>
+      <p> -- 15 </p>
+      <p> -- 16 </p>
+      <p> -- 17 </p>
+      <p> -- 18 </p>
+      <p> -- 19 </p>
+      <p> -- 20 </p>
+      <p> -- 21 </p>
+      <p> -- 22 </p>
+      <p> -- X </p>
+      <p> -- Y </p>
+      <p> -- MT </p>
+      <p style="color:#19B4E6">Go back to the main page: <a href="/">Main page </a></p>
+   </body>
+</html>
+
+* TEST 6:
+
+* Input:
+
 http://127.0.0.1:8080/karyotype?Specie=
 
 * Output:
@@ -940,6 +1007,7 @@ http://127.0.0.1:8080/karyotype?Specie=
       <p> Click here to go back to the main page: <a href="/"> Main page </a> </p>
    </body>
 </html>
+
 
 
 ---------------------> chromosomeLength ENDPOINT
@@ -1074,20 +1142,20 @@ http://127.0.0.1:8080/chromosomeLength?Specie=pig&Chromosome=X
 
 * Input:
 
-http://127.0.0.1:8080/chromosomeLength?Specie=cow&Chromosome=4
+http://127.0.0.1:8080/chromosomeLength?Specie=&Chromosome=
 
 * Output:
 
 <!DOCTYPE html>
-<html lang = "en">
+<html lang="en">
    <head>
-      <meta charset = "utf-8" >
-      <title> Length Chromosome</title >
+      <meta charset="UTF-8">
+      <title>Error</title>
    </head>
-   <body style="background-color:#DCF3FB">
-      <h1 style="color:#32A2C9">Chromosome Length</h1>
-      <p style="color:#19B4E6"><b> The length of the 4 cow chromosome is: 120000601</b></p>
-      <p>Go back to the Main Page: <a href="/"> Main page</a></p>
+   <body style="background-color: #DF6868;">
+      <h1>ERROR</h1>
+      <p> Introduce a valid species and chromosome to calculate its length </p>
+      <p> Click here to go back to the main page: <a href="/"> Main page </a> </p>
    </body>
 </html>
 
