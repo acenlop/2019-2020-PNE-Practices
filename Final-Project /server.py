@@ -73,6 +73,19 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
               # menu of iteration to chose the path to act when the limit is inputed
               if index == "":  # no index is inputed --> all list must be printed
                   index = "286"
+              if index == str:  #in case a string is inputed
+                  contents = """<!DOCTYPE html> 
+                                         <html lang="en"> 
+                                             <head>
+                                                 <meta charset="UTF-8">
+                                                 <title>Error</title>
+                                             </head>
+                                             <body style="background-color: #DF6868">
+                                                 <h1>ERROR</h1>
+                                                 <p> Limit must be a number </p>
+                                                 <p> Click here to go back to the main page: <a href="/"> Main page </a> </p>
+                                             </body>
+                                         </html>"""
               index = int(index)
               if index <= 0:  # index less or equal to 0 --> error
                   contents = """<!DOCTYPE html> 
