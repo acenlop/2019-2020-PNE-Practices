@@ -153,7 +153,7 @@ http://127.0.0.1:8080/listSpecies?limit=1
 
 * Input:
 
-http://127.0.0.1:8080/listSpecies?limit=2
+http://127.0.0.1:8080/listSpecies?limit=PYTHON
 
 * Output:
 
@@ -161,16 +161,12 @@ http://127.0.0.1:8080/listSpecies?limit=2
  <html lang = "en">
      <head>
         <meta charset = "utf-8" >
-        <title>List of species in the browser</title >
+        <title>Error</title >
      </head>
-     <body style="background-color:#DCF3FB">
-        <h1 style="color:#32A2C9"> List of species</h1>
-        <p style="color:#19B4E6"><b>The total number of species in ensembl is: 286</b></p>
-        <p><b>The number of species you selected are: 1 </b> </p>
-        <p>The species are: </p>
-        <p> - Pig - Rongchang </p>
-        <p> - Pika </p>
-        <p> Go back to the Main Page: <a href="/">Main page</a> </p>
+     <body style="background-color: #DF6868">
+         <h1>ERROR</h1>
+         <p> Limit must be a number </p>
+         <p> Click here to go back to the main page: <a href="/"> Main page </a> </p>
      </body>
  </html>
 
